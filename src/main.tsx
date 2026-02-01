@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom' // Adicio
 import './index.css'
 
 // Importe suas novas páginas
-import Home from './pages/Home.tsx'
+import Home from './pages/main/Home.tsx'
 import Login from './pages/auth/Login.tsx'
 import Register from './pages/auth/Register.tsx'
 
