@@ -13,10 +13,6 @@ function Login() {
           <h2 className="font-bold text-4xl text-center">Login</h2>
           <p className=" mb-4 text-center text-xl">Faça login para acessar sua conta</p>
           <div>
-            <label htmlFor="fieldgroup-name">Nome</label>
-            <Input id="fieldgroup-name" placeholder="João Silva" />
-          </div>
-          <div>
             <label htmlFor="fieldgroup-email">Email</label>
             <Input
               id="fieldgroup-email"
