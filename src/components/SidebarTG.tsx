@@ -29,7 +29,7 @@ function SidebarTG(){
           </SidebarFooter>
         </Sidebar>
         <main className="flex-1 p-4">
-          <SidebarTrigger className="cursor-pointer">
+          <SidebarTrigger className="fixed top-4 left-4 z-20 cursor-pointer">
             <PanelLeft className="size-4" />
           </SidebarTrigger>
         </main>

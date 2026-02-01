@@ -9,8 +9,11 @@ function Home() {
         <SidebarTG />
       </div>
       <div className="w-full h-full">
-        <div>
+        <div className="sticky top-0 z-10">
           <Navigation />
+        </div>
+        <div className="flex-1 h-full w-full bg-gray-100 p-4">
+          {/* Main content goes here */}
         </div>
       </div>
     </div>
