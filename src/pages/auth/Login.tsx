@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Eye, EyeOff } from "lucide-react"
 
 function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div className="p-7 flex flex-col justify-center items-center w-full min-h-screen border-r-2 bg-gray-100">
         
@@ -20,12 +23,16 @@ function Login() {
               type="email"
               placeholder="name@example.com"
             />
-            <label htmlFor="fieldgroup-email">Senha</label>
-            <Input
-              id="fieldgroup-email"
-              type="password"
-              placeholder="Your strong password"
-            />
+            <label htmlFor="fieldgroup-password">Senha</label>
+            <div className="relative">
+              <Input
+                id="fieldgroup-password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Your strong password"
+                className="pr-10"
+              />
+              <Button type="button" onClick={() => setShowPassword(!showPassword)} variant="ghost" size="sm" className="absolute right-1 top-1/2 transform -translate-y-1/2 p-1"> {showPassword ? <EyeOff size={16} /> : <Eye size={16} />} </Button>
+            </div>
             <div className="flex flex-col gap-2 mt-2 md:flex-row md:justify-between">
               <p><a className="hover:underline" href="./Register">Criar conta</a></p>
               <p>
