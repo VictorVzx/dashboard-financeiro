@@ -7,11 +7,11 @@ function Register() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     return(
-        <div className="p-7 flex flex-col justify-center items-center w-full min-h-screen border-r-2 bg-gray-100">
+        <div className="p-4 sm:p-7 flex flex-col justify-center items-center w-full min-h-screen bg-gray-100">
         
-        <div className="w-100 h-140 flex flex-col p-10 rounded-2xl shadow-2xl bg-white">
-          <h2 className="font-bold text-4xl text-center">Registrar-se</h2>
-          <p className=" mb-4 text-center text-xl">Crie a sua conta para entrar!</p>
+        <div className="w-full max-w-md flex flex-col p-6 sm:p-10 rounded-2xl shadow-2xl bg-white">
+          <h2 className="font-bold text-2xl sm:text-4xl text-center">Registrar-se</h2>
+          <p className="mb-4 text-center text-lg sm:text-xl">Crie a sua conta para entrar!</p>
           <div>
             <label htmlFor="fieldgroup-name">Nome</label>
             <Input id="fieldgroup-name" placeholder="João Silva" />
@@ -43,8 +43,8 @@ function Register() {
               />
               <Button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} variant="ghost" size="sm" className="absolute right-1 top-1/2 transform -translate-y-1/2 p-1"> {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />} </Button>
             </div>
-            <div className="flex flex-col gap-2 mt-2 md:flex-row md:justify-between">
-              <p><a className="hover:underline ml-70" href="/login">Login</a></p>
+            <div className="mt-2 text-center">
+              <a className="hover:underline" href="/login">Login</a>
             </div>
           </div>
           <div className="mt-4">

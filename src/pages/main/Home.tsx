@@ -1,6 +1,8 @@
 import SidebarTG from "@/components/SidebarTG"
 import Navigation from "@/components/Navigation"
 import Balance from "@/components/Balance"
+import Upcomings from "@/components/Upcomings"
+import Spent from "@/components/Spent"
 
 function Home() {
 
@@ -15,8 +17,10 @@ function Home() {
           <div className="sticky top-0 z-10">
             <Navigation />
           </div>
-          <div className="flex-1 p-6">
+          <div className="flex-1 p-6 flex justify-center flex-row gap-4">
             <Balance />
+            <Upcomings />
+            <Spent />
           </div>
         </div>
       </div>
