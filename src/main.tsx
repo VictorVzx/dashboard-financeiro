@@ -7,6 +7,7 @@ import './index.css'
 import Home from './pages/main/Home.tsx'
 import Login from './pages/auth/Login.tsx'
 import Register from './pages/auth/Register.tsx'
+import ForgotPassword from './pages/auth/ForgotPassword.tsx'
 
 // Configure o mapa de rotas
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
+  {
+    path: "/forgot",
+    element: <ForgotPassword />,
+  }
 ])
 
 createRoot(document.getElementById('root')!).render(
