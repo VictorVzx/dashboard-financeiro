@@ -12,20 +12,29 @@ function SidebarTG(){
           </SidebarHeader>
           <SidebarContent>
             <SidebarGroup>
-              {/* Add your menu items here */
                 <div>
-                  <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><LayoutDashboard className="size-4" /> Dashboard</p>
-                  <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><Users className="size-4" /> Accounts</p>
-                  <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><Receipt className="size-4" /> Transactions</p>
-                  <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><PiggyBank className="size-4" /> Budgets</p>
-                  <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><Target className="size-4" /> Goals</p>
+                  <a href="/">
+                    <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><LayoutDashboard className="size-4" /> Dashboard</p>
+                  </a>
+                  <a href="#">
+                    <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><Users className="size-4" /> Accounts</p>
+                  </a>
+                  <a href="#">
+                    <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><Receipt className="size-4" /> Transactions</p>
+                  </a>
+                  <a href="#">
+                    <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><PiggyBank className="size-4" /> Budgets</p>
+                  </a>
+                  <a href="#">
+                    <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><Target className="size-4" /> Goals</p>
+                  </a>
                 </div>
-                
-              }
             </SidebarGroup>
           </SidebarContent>
           <SidebarFooter>
-            <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><Settings className="size-4" /> Configurações</p>
+            <a href="#">
+              <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><Settings className="size-4" /> Configurações</p>
+            </a>
           </SidebarFooter>
         </Sidebar>
         <main className="flex-1 p-4">
