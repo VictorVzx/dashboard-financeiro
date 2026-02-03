@@ -30,9 +30,9 @@ function Login() {
               <Button type="button" onClick={() => setShowPassword(!showPassword)} variant="ghost" size="sm" className="absolute right-1 top-1/2 transform -translate-y-1/2 p-1"> {showPassword ? <EyeOff size={16} /> : <Eye size={16} />} </Button>
             </div>
             <div className="flex flex-col gap-2 mt-2 md:flex-row md:justify-between">
-              <p><a className="hover:underline" href="./Register">Criar conta</a></p>
+              <p><a className="hover:underline" href="./register">Criar conta</a></p>
               <p>
-                <a className="hover:underline" href="#">Esqueci minha senha</a>
+                <a className="hover:underline" href="./forgot">Esqueci minha senha</a>
               </p>
             </div>
           </div>

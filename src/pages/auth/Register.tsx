@@ -44,7 +44,7 @@ function Register() {
               <Button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} variant="ghost" size="sm" className="absolute right-1 top-1/2 transform -translate-y-1/2 p-1"> {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />} </Button>
             </div>
             <div className="flex flex-col gap-2 mt-2 md:flex-row md:justify-between">
-              <p><a className="hover:underline ml-70" href="./Login">Login</a></p>
+              <p><a className="hover:underline ml-70" href="/login">Login</a></p>
             </div>
           </div>
           <div className="mt-4">
