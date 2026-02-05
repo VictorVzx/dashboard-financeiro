@@ -13,6 +13,7 @@ import Budgets from './pages/others/Budgets.tsx'
 import Goals from './pages/others/Goals.tsx'
 import Settings from './pages/others/Settings.tsx'
 import Transactions from './pages/others/Transactions.tsx'
+import Profle from './pages/others/Profle.tsx'
 
 
 
@@ -53,6 +54,11 @@ const router = createBrowserRouter([
   {
     path: "/settings",
     element: <Settings />,
+  },
+  {
+    path: "/profile",
+    element: <Profle />,
+  
   }
 ])
 

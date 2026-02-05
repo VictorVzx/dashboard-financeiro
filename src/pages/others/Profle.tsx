@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 
-function Settings() {
+function Profle() {
   return (
     <div>
       <a href="/">
@@ -11,4 +11,4 @@ function Settings() {
   );
 }
 
-export default Settings;
+export default Profle;

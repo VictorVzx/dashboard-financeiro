@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import { Button } from "@/components/ui/button";
 
 function Transactions() {
   return (
-    <div>Transactions</div>
-  )
+    <div>
+      <a href="/">
+        <Button>Main</Button>
+      </a>
+    </div>
+  );
 }
 
-export default Transactions
+export default Transactions;

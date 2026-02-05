@@ -1,9 +1,14 @@
-import React from 'react'
+import { Button } from "@/components/ui/button";
+import React from "react";
 
 function Budgets() {
   return (
-    <div>Budgets</div>
-  )
+    <div>
+      <a href="/">
+        <Button>Main</Button>
+      </a>
+    </div>
+  );
 }
 
-export default Budgets
+export default Budgets;

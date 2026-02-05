@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import { Button } from "@/components/ui/button";
 
 function Goals() {
   return (
-    <div>Goals</div>
-  )
+    <div>
+      <a href="/">
+        <Button>Main</Button>
+      </a>
+    </div>
+  );
 }
 
-export default Goals
+export default Goals;

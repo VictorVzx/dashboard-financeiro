@@ -1,8 +1,13 @@
 import React from 'react'
+import { Button } from '@/components/ui/button';
 
 function Accounts() {
   return (
-    <div>Accounts</div>
+    <div>
+      <a href="/">
+        <Button>Main</Button>
+      </a>
+    </div>
   )
 }
 
