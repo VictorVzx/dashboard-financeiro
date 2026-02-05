@@ -8,6 +8,13 @@ import Home from './pages/main/Home.tsx'
 import Login from './pages/auth/Login.tsx'
 import Register from './pages/auth/Register.tsx'
 import ForgotPassword from './pages/auth/ForgotPassword.tsx'
+import Accounts from './pages/others/Accounts.tsx'
+import Budgets from './pages/others/Budgets.tsx'
+import Goals from './pages/others/Goals.tsx'
+import Settings from './pages/others/Settings.tsx'
+import Transactions from './pages/others/Transactions.tsx'
+
+
 
 // Configure o mapa de rotas
 const router = createBrowserRouter([
@@ -26,6 +33,26 @@ const router = createBrowserRouter([
   {
     path: "/forgot",
     element: <ForgotPassword />,
+  },
+  {
+    path: "/accounts",
+    element: <Accounts />, // Supondo que você tenha uma página Accounts
+  },
+  {
+    path: "/transactions",
+    element: <Transactions />,
+  },
+  {
+    path: "/budgets",
+    element: <Budgets />,
+  },
+  {
+    path: "/goals",
+    element: <Goals />,
+  },
+  {
+    path: "/settings",
+    element: <Settings />,
   }
 ])
 

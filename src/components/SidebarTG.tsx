@@ -16,23 +16,23 @@ function SidebarTG(){
                   <a href="/">
                     <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><LayoutDashboard className="size-4" /> Dashboard</p>
                   </a>
-                  <a href="#">
+                  <a href="/accounts">
                     <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><Users className="size-4" /> Accounts</p>
                   </a>
-                  <a href="#">
+                  <a href="/transactions">
                     <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><Receipt className="size-4" /> Transactions</p>
                   </a>
-                  <a href="#">
+                  <a href="/budgets">
                     <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><PiggyBank className="size-4" /> Budgets</p>
                   </a>
-                  <a href="#">
+                  <a href="/goals">
                     <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><Target className="size-4" /> Goals</p>
                   </a>
                 </div>
             </SidebarGroup>
           </SidebarContent>
           <SidebarFooter>
-            <a href="#">
+            <a href="/settings">
               <p className="px-4 py-2 hover:bg-accent rounded-md cursor-pointer flex items-center gap-2"><Settings className="size-4" /> Configurações</p>
             </a>
           </SidebarFooter>
