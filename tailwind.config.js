@@ -1,0 +1,13 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{html,js}"],
+  theme: {
+    extend: {
+      fontFamily: {
+        // 'sans' substitui a fonte padrão do Tailwind
+        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+      },
+    },
+  },
+  plugins: [],
+}
