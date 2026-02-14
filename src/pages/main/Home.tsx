@@ -17,7 +17,7 @@ function Home() {
           <div className="sticky top-0 z-10">
             <Navigation />
           </div>
-          <div className="flex-1 p-6 flex justify-between flex-row gap-4">
+          <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
             <Balance />
             <Upcomings />
             <Spent />
