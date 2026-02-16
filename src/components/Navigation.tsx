@@ -1,16 +1,18 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Notification } from "./Notifications.tsx";
+import { ThemeToggle } from "./ThemeToggle.tsx";
 
 function Navigation() {
   const user = "Victor";
 
   return (
     <div className="w-full h-full flex items-center">
-      <div className="w-full h-1/19 bg-white flex items-center justify-between px-6 py-3 ">
-        <h2 className="text-xl font-semibold">
+      <div className="w-full h-1/19 bg-card flex items-center justify-between px-6 py-3 ">
+        <h2 className="text-xl font-semibold text-foreground">
           Bem-vindo(a) de volta, {user}!
         </h2>
         <div className="flex items-center gap-4">
+          <ThemeToggle />
           <div className="mr-5">
             <Notification />
           </div>

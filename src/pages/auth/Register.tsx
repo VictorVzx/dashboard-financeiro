@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,10 +43,13 @@ function Register() {
     formData.password !== formData.confirmPassword;
 
   return (
-    <div className="p-4 sm:p-7 flex flex-col justify-center items-center w-full min-h-screen bg-gray-100">
-      <div className="w-full max-w-md flex flex-col p-6 sm:p-10 rounded-2xl shadow-2xl bg-white">
+    <div className="relative p-4 sm:p-7 flex flex-col justify-center items-center w-full min-h-screen bg-background">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+      <div className="w-full max-w-md flex flex-col p-6 sm:p-10 rounded-2xl shadow-2xl bg-card text-foreground">
         <h2 className="font-bold text-2xl sm:text-4xl text-center">Registrar-se</h2>
-        <p className="mb-4 text-center text-lg sm:text-xl text-gray-600">
+        <p className="mb-4 text-center text-lg sm:text-xl">
           Crie a sua conta para entrar!
         </p>
 
