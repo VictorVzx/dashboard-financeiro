@@ -29,9 +29,16 @@ export function ThemeToggle() {
   };
 
   return (
-    <Button variant="ghost" size="icon" onClick={toggleTheme} className='cursor-pointer'>
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={toggleTheme}
+      className="cursor-pointer"
+      title="Alternar tema"
+      aria-label="Alternar tema"
+    >
       {isDarkMode ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
-      <span className="sr-only">Toggle theme</span>
+      <span className="sr-only">Alternar tema</span>
     </Button>
   );
 }
