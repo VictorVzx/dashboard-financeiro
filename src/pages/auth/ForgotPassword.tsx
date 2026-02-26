@@ -1,39 +1,40 @@
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import type { FormEvent } from "react"
+import { Link } from "react-router-dom"
+import { Mail } from "lucide-react"
+import AuthShell from "@/components/AuthShell"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 function ForgotPassword() {
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+  }
+
   return (
-    <div className="relative p-4 sm:p-7 flex flex-col justify-center items-center w-full min-h-screen bg-background">
-      <div className="absolute top-4 right-4">
-        <ThemeToggle />
-      </div>
-      <div className="w-full max-w-md flex flex-col p-6 sm:p-10 rounded-2xl shadow-2xl bg-card text-foreground">
-        <h2 className="font-bold text-2xl sm:text-3xl text-center">
-          Recuperar Acesso
-        </h2>
-        <p className="mb-4 text-center text-lg sm:text-xl">
-          Enviar um codigo para o seu email
-        </p>
-        <div className="w-full flex flex-col align-center">
-          <label htmlFor="fieldgroup-email">Email</label>
-          <Input
-            id="fieldgroup-email"
-            type="email"
-            placeholder="name@example.com"
-          />
-          <Button type="submit" className="mt-4 cursor-pointer">
-            Enviar
-          </Button>
-          <div className="mt-2 text-center">
-            <a className="hover:underline" href="/login">
-              Voltar
-            </a>
+    <AuthShell title="Recuperar acesso" subtitle="Enviaremos um codigo para seu email">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-2">
+          <label htmlFor="forgot-email" className="text-sm font-medium">
+            Email
+          </label>
+          <div className="relative">
+            <Mail className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input id="forgot-email" type="email" placeholder="voce@email.com" className="pl-9" required />
           </div>
         </div>
-      </div>
-    </div>
-  );
+
+        <Button type="submit" className="w-full cursor-pointer">
+          Enviar codigo
+        </Button>
+
+        <p className="text-center text-sm text-muted-foreground">
+          <Link to="/login" className="text-foreground hover:underline">
+            Voltar para login
+          </Link>
+        </p>
+      </form>
+    </AuthShell>
+  )
 }
 
-export default ForgotPassword;
+export default ForgotPassword

@@ -1,149 +1,148 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Eye, EyeOff } from "lucide-react";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { useState, type ChangeEvent, type FormEvent } from "react"
+import { Link } from "react-router-dom"
+import { Eye, EyeOff, Mail, Lock, User } from "lucide-react"
+import AuthShell from "@/components/AuthShell"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+
+type RegisterForm = {
+  name: string
+  email: string
+  password: string
+  confirmPassword: string
+}
 
 function Register() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
-
-  // 1. Gerenciando todos os dados em um único objeto
-  const [formData, setFormData] = useState({
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [formData, setFormData] = useState<RegisterForm>({
     name: "",
     email: "",
     password: "",
-    confirmPassword: ""
-  });
+    confirmPassword: "",
+  })
 
-  // Função para atualizar os campos dinamicamente
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    // O id deve bater com o nome da chave no objeto (ex: fieldgroup-name -> name)
-    const fieldName = id.replace("fieldgroup-", "");
-    setFormData((prev) => ({ ...prev, [fieldName]: value }));
-  };
+  const handleChange = (field: keyof RegisterForm) => (e: ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, [field]: e.target.value }))
+  }
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    
-    // Validação básica de confirmação de senha
-    if (formData.password !== formData.confirmPassword) {
-      
-      return;
-    }
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    if (formData.password !== formData.confirmPassword) return
+    console.log("Dados do registro:", formData)
+  }
 
-    console.log("Dados do Registro:", formData);
-    // Envie para seu backend aqui
-  };
-
-  const passWordsDontMatch = 
-    formData.confirmPassword.length > 0 && 
-    formData.password !== formData.confirmPassword;
+  const senhasDiferentes =
+    formData.confirmPassword.length > 0 && formData.password !== formData.confirmPassword
 
   return (
-    <div className="relative p-4 sm:p-7 flex flex-col justify-center items-center w-full min-h-screen bg-background">
-      <div className="absolute top-4 right-4">
-        <ThemeToggle />
-      </div>
-      <div className="w-full max-w-md flex flex-col p-6 sm:p-10 rounded-2xl shadow-2xl bg-card text-foreground">
-        <h2 className="font-bold text-2xl sm:text-4xl text-center">Registrar-se</h2>
-        <p className="mb-4 text-center text-lg sm:text-xl">
-          Crie a sua conta para entrar!
-        </p>
-
-        {/* Início do Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="text-sm font-medium" htmlFor="fieldgroup-name">Nome</label>
-            <Input 
-                id="fieldgroup-name" 
-                placeholder="João Silva" 
-                value={formData.name}
-                onChange={handleChange}
-                required 
-            />
-          </div>
-
-          <div>
-            <label className="text-sm font-medium" htmlFor="fieldgroup-email">Email</label>
+    <AuthShell title="Criar conta" subtitle="Cadastre-se para usar o painel financeiro">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-2">
+          <label htmlFor="register-name" className="text-sm font-medium">
+            Nome
+          </label>
+          <div className="relative">
+            <User className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              id="fieldgroup-email"
-              type="email"
-              placeholder="name@example.com"
-              value={formData.email}
-              onChange={handleChange}
+              id="register-name"
+              placeholder="Seu nome"
+              className="pl-9"
+              value={formData.name}
+              onChange={handleChange("name")}
               required
             />
           </div>
+        </div>
 
-          <div>
-            <label className="text-sm font-medium" htmlFor="fieldgroup-password">Senha</label>
-            <div className="relative">
-              <Input
-                id="fieldgroup-password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Sua senha forte"
-                className="pr-10"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-              <Button 
-                type="button" 
-                onClick={() => setShowPassword(!showPassword)} 
-                variant="ghost" 
-                size="sm" 
-                className="absolute right-1 top-1/2 -translate-y-1/2 p-1"
-              > 
-                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />} 
-              </Button>
-            </div>
+        <div className="space-y-2">
+          <label htmlFor="register-email" className="text-sm font-medium">
+            Email
+          </label>
+          <div className="relative">
+            <Mail className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              id="register-email"
+              type="email"
+              placeholder="voce@email.com"
+              className="pl-9"
+              value={formData.email}
+              onChange={handleChange("email")}
+              required
+            />
           </div>
+        </div>
 
-          <div>
-            <label className="text-sm font-medium" htmlFor="fieldgroup-confirmPassword">Confirmar senha</label>
-            <div className="relative">
-              <Input
-                id="fieldgroup-confirmPassword"
-                type={showConfirmPassword ? "text" : "password"}
-                placeholder="Confirme sua senha"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-                className={`pr-10 ${
-                  passWordsDontMatch ? "border-red-500" : "border-gray-300"
-                }`}
-              />
-              <Button 
-                type="button" 
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)} 
-                variant="ghost" 
-                size="sm" 
-                className="absolute right-1 top-1/2 -translate-y-1/2 p-1"
-              > 
-                {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />} 
-              </Button>
-            </div>
-            {passWordsDontMatch && (
-              <p className="text-red-500 text-sm mt-1">As senhas não coincidem.</p>
-            )}
+        <div className="space-y-2">
+          <label htmlFor="register-password" className="text-sm font-medium">
+            Senha
+          </label>
+          <div className="relative">
+            <Lock className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              id="register-password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Crie uma senha"
+              className="pl-9 pr-10"
+              value={formData.password}
+              onChange={handleChange("password")}
+              required
+            />
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-xs"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer"
+            >
+              {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+              <span className="sr-only">Mostrar ou ocultar senha</span>
+            </Button>
           </div>
+        </div>
 
-          <div className="mt-2 text-center">
-            <a className="text-sm text-sky-600 hover:underline" href="/login">
-              Já tem uma conta? Faça login
-            </a>
+        <div className="space-y-2">
+          <label htmlFor="register-confirm" className="text-sm font-medium">
+            Confirmar senha
+          </label>
+          <div className="relative">
+            <Lock className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              id="register-confirm"
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="Repita a senha"
+              className="pl-9 pr-10"
+              value={formData.confirmPassword}
+              onChange={handleChange("confirmPassword")}
+              required
+            />
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-xs"
+              onClick={() => setShowConfirmPassword((prev) => !prev)}
+              className="absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer"
+            >
+              {showConfirmPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+              <span className="sr-only">Mostrar ou ocultar senha</span>
+            </Button>
           </div>
+          {senhasDiferentes && <p className="text-xs text-destructive">As senhas nao coincidem.</p>}
+        </div>
 
-          <Button type="submit" className="w-full mt-4 cursor-pointer">
-            Criar Conta
-          </Button>
-        </form>
-      </div>
-    </div>
-  );
+        <Button type="submit" className="w-full cursor-pointer">
+          Criar conta
+        </Button>
+
+        <p className="text-center text-sm text-muted-foreground">
+          Ja tem conta?{" "}
+          <Link to="/login" className="text-foreground hover:underline">
+            Entrar
+          </Link>
+        </p>
+      </form>
+    </AuthShell>
+  )
 }
 
-export default Register;
+export default Register
