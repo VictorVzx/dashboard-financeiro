@@ -11,9 +11,7 @@ import ForgotPassword from './pages/auth/ForgotPassword.tsx'
 import Accounts from './pages/others/Accounts.tsx'
 import Budgets from './pages/others/Budgets.tsx'
 import Goals from './pages/others/Goals.tsx'
-import Settings from './pages/others/Settings.tsx'
 import Transactions from './pages/others/Transactions.tsx'
-import Profle from './pages/others/Profle.tsx'
 
 
 
@@ -36,8 +34,24 @@ const router = createBrowserRouter([
     element: <ForgotPassword />,
   },
   {
+    path: "/contas",
+    element: <Accounts />,
+  },
+  {
+    path: "/transacoes",
+    element: <Transactions />,
+  },
+  {
+    path: "/orcamentos",
+    element: <Budgets />,
+  },
+  {
+    path: "/metas",
+    element: <Goals />,
+  },
+  {
     path: "/accounts",
-    element: <Accounts />, // Supondo que você tenha uma página Accounts
+    element: <Accounts />,
   },
   {
     path: "/transactions",
@@ -51,15 +65,6 @@ const router = createBrowserRouter([
     path: "/goals",
     element: <Goals />,
   },
-  {
-    path: "/settings",
-    element: <Settings />,
-  },
-  {
-    path: "/profile",
-    element: <Profle />,
-  
-  }
 ])
 
 createRoot(document.getElementById('root')!).render(

@@ -2,12 +2,14 @@ import { ArrowUp } from "lucide-react";
 
 function Upcomings() {
   return (
-    <div className="bg-card flex flex-col sm:flex-row w-full h-40 rounded-lg shadow-md items-center justify-center gap-2 sm:gap-4 p-2 sm:p-4">
-      <ArrowUp className="w-6 h-6 sm:w-8 sm:h-8" />
-      <div className="text-center sm:text-left text-foreground">
-        <h2 className="font-bold text-sm sm:text-base">Acréscimos:</h2>
-        <p className="text-lg sm:text-xl font-semibold">0,00 R$</p>
-        <p className="text-sm sm:text-base">Ultimo mês</p>
+    <div className="group flex h-40 w-full flex-col items-center justify-center gap-3 rounded-xl border border-border/70 bg-card/90 p-4 shadow-sm transition hover:shadow-md sm:flex-row sm:gap-4">
+      <div className="rounded-full bg-muted p-3 text-emerald-500 transition group-hover:bg-muted/80 dark:text-emerald-400">
+        <ArrowUp className="h-6 w-6 sm:h-7 sm:w-7" />
+      </div>
+      <div className="text-center text-foreground sm:text-left">
+        <h2 className="text-sm font-bold sm:text-base">Acrescimos:</h2>
+        <p className="text-xl font-semibold">0,00 R$</p>
+        <p className="text-sm text-muted-foreground">Ultimo mes</p>
       </div>
     </div>
   );
