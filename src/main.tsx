@@ -1,9 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom' // Adicione isso
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 
-// Importe suas novas páginas
 import Home from './pages/main/Home.tsx'
 import Login from './pages/auth/Login.tsx'
 import Register from './pages/auth/Register.tsx'
@@ -12,14 +11,49 @@ import Accounts from './pages/others/Accounts.tsx'
 import Budgets from './pages/others/Budgets.tsx'
 import Goals from './pages/others/Goals.tsx'
 import Transactions from './pages/others/Transactions.tsx'
+import RequireAuth from './components/RequireAuth.tsx'
 
-
-
-// Configure o mapa de rotas
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Home />,
+    element: <RequireAuth />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/contas",
+        element: <Accounts />,
+      },
+      {
+        path: "/transacoes",
+        element: <Transactions />,
+      },
+      {
+        path: "/orcamentos",
+        element: <Budgets />,
+      },
+      {
+        path: "/metas",
+        element: <Goals />,
+      },
+      {
+        path: "/accounts",
+        element: <Accounts />,
+      },
+      {
+        path: "/transactions",
+        element: <Transactions />,
+      },
+      {
+        path: "/budgets",
+        element: <Budgets />,
+      },
+      {
+        path: "/goals",
+        element: <Goals />,
+      },
+    ],
   },
   {
     path: "/login",
@@ -33,43 +67,10 @@ const router = createBrowserRouter([
     path: "/forgot",
     element: <ForgotPassword />,
   },
-  {
-    path: "/contas",
-    element: <Accounts />,
-  },
-  {
-    path: "/transacoes",
-    element: <Transactions />,
-  },
-  {
-    path: "/orcamentos",
-    element: <Budgets />,
-  },
-  {
-    path: "/metas",
-    element: <Goals />,
-  },
-  {
-    path: "/accounts",
-    element: <Accounts />,
-  },
-  {
-    path: "/transactions",
-    element: <Transactions />,
-  },
-  {
-    path: "/budgets",
-    element: <Budgets />,
-  },
-  {
-    path: "/goals",
-    element: <Goals />,
-  },
 ])
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    {/* Em vez de renderizar <Home />, renderizamos o provedor de rotas */}
     <RouterProvider router={router} />
   </StrictMode>,
 )

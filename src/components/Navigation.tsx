@@ -1,12 +1,53 @@
+import { useEffect, useState } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useSidebar } from "@/components/ui/sidebar"
 import { Notification } from "./Notifications.tsx"
 import ProfileModal from "./ProfileModal"
+import { getStoredProfile, getStoredUser, onAuthUpdated, onProfileUpdated, type UserProfile } from "@/lib/auth"
+
+function getInitials(name: string) {
+  if (!name.trim()) return "US"
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("")
+}
+
+function resolveProfile(): Pick<UserProfile, "name" | "avatarUrl"> {
+  const storedProfile = getStoredProfile()
+  if (storedProfile) {
+    return {
+      name: storedProfile.name,
+      avatarUrl: storedProfile.avatarUrl,
+    }
+  }
+
+  const user = getStoredUser()
+  return {
+    name: user?.name ?? "Usuario",
+    avatarUrl: null,
+  }
+}
 
 function Navigation() {
-  const user = "Victor"
   const { isMobile, open } = useSidebar()
   const desktopLeft = open ? "var(--sidebar-width)" : "0px"
+  const [profile, setProfile] = useState(resolveProfile)
+
+  useEffect(() => {
+    const sync = () => setProfile(resolveProfile())
+    const unlistenAuth = onAuthUpdated(sync)
+    const unlistenProfile = onProfileUpdated(sync)
+    return () => {
+      unlistenAuth()
+      unlistenProfile()
+    }
+  }, [])
+
+  const userName = profile.name || "Usuario"
+  const initials = getInitials(userName)
 
   return (
     <div
@@ -19,8 +60,8 @@ function Navigation() {
     >
       <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-2 sm:gap-3">
         <div className="flex min-w-0 flex-1 flex-col gap-1 pl-11 sm:pl-14 md:pl-0 sm:flex-row sm:items-center sm:gap-2 md:gap-3">
-          <h2 className="truncate text-sm font-semibold text-foreground sm:text-base md:text-lg lg:text-xl ml-7">
-            Bem-vindo de volta, {user}!
+          <h2 className="ml-7 truncate text-sm font-semibold text-foreground sm:text-base md:text-lg lg:text-xl">
+            Bem-vindo de volta, {userName}!
           </h2>
         </div>
         <div className="flex w-auto shrink-0 items-center justify-end gap-1.5 sm:gap-3">
@@ -35,10 +76,10 @@ function Navigation() {
               <Avatar className="size-8 sm:size-9">
                 <AvatarImage
                   className="rounded-full"
-                  src="https://github.com/shadcn.png"
-                  alt={`${user} profile picture`}
+                  src={profile.avatarUrl || undefined}
+                  alt={`${userName} profile picture`}
                 />
-                <AvatarFallback>VA</AvatarFallback>
+                <AvatarFallback>{initials}</AvatarFallback>
               </Avatar>
             </button>
           </ProfileModal>

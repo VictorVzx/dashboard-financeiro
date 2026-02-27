@@ -1,35 +1,115 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
-import { Link } from "react-router-dom"
-import { Eye, EyeOff, Mail, Lock, User } from "lucide-react"
+import { Link, useNavigate } from "react-router-dom"
+import { Eye, EyeOff, Mail, Lock, User, Calendar, IdCard } from "lucide-react"
 import AuthShell from "@/components/AuthShell"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { getErrorMessage } from "@/lib/api"
+import { register } from "@/lib/auth"
 
 type RegisterForm = {
   name: string
   email: string
+  cpf: string
+  birthDate: string
   password: string
   confirmPassword: string
 }
 
+function formatCpf(value: string) {
+  const digits = value.replace(/\D/g, "").slice(0, 11)
+  if (digits.length <= 3) return digits
+  if (digits.length <= 6) return `${digits.slice(0, 3)}.${digits.slice(3)}`
+  if (digits.length <= 9) return `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6)}`
+  return `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6, 9)}-${digits.slice(9)}`
+}
+
+function getAgeFromBirthDate(birthDate: string) {
+  const today = new Date()
+  const birth = new Date(`${birthDate}T00:00:00`)
+
+  let age = today.getFullYear() - birth.getFullYear()
+  const monthDiff = today.getMonth() - birth.getMonth()
+  const hasNotHadBirthdayYet =
+    monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())
+
+  if (hasNotHadBirthdayYet) age -= 1
+  return age
+}
+
+function formatBirthDateToBackend(value: string) {
+  const [year, month, day] = value.split("-")
+  if (!year || !month || !day) return ""
+  return `${day}-${month}-${year}`
+}
+
 function Register() {
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [error, setError] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState<RegisterForm>({
     name: "",
     email: "",
+    cpf: "",
+    birthDate: "",
     password: "",
     confirmPassword: "",
   })
 
   const handleChange = (field: keyof RegisterForm) => (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [field]: e.target.value }))
+    const value = field === "cpf" ? formatCpf(e.target.value) : e.target.value
+    setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    if (formData.password !== formData.confirmPassword) return
-    console.log("Dados do registro:", formData)
+    setError("")
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("As senhas nao coincidem.")
+      return
+    }
+
+    const cpfDigits = formData.cpf.replace(/\D/g, "")
+    if (cpfDigits.length !== 11) {
+      setError("Informe um CPF valido com 11 digitos.")
+      return
+    }
+
+    if (!formData.birthDate) {
+      setError("Informe sua data de nascimento.")
+      return
+    }
+
+    const age = getAgeFromBirthDate(formData.birthDate)
+    if (Number.isNaN(age) || age < 0) {
+      setError("Data de nascimento invalida.")
+      return
+    }
+
+    if (age < 18) {
+      setError("Nao e possivel criar a conta para menores de 18 anos.")
+      return
+    }
+
+    setIsSubmitting(true)
+
+    try {
+      await register({
+        name: formData.name.trim(),
+        email: formData.email.trim().toLowerCase(),
+        cpf: cpfDigits,
+        birthdate: formatBirthDateToBackend(formData.birthDate),
+        password: formData.password,
+      })
+      navigate("/")
+    } catch (apiError) {
+      setError(getErrorMessage(apiError, "Nao foi possivel concluir o cadastro."))
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const senhasDiferentes =
@@ -68,6 +148,42 @@ function Register() {
               className="pl-9"
               value={formData.email}
               onChange={handleChange("email")}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="register-birth-date" className="text-sm font-medium">
+            Data de nascimento
+          </label>
+          <div className="relative">
+            <Calendar className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              id="register-birth-date"
+              type="date"
+              className="pl-9"
+              value={formData.birthDate}
+              onChange={handleChange("birthDate")}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="register-cpf" className="text-sm font-medium">
+            CPF
+          </label>
+          <div className="relative">
+            <IdCard className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              id="register-cpf"
+              type="text"
+              placeholder="000.000.000-00"
+              className="pl-9"
+              value={formData.cpf}
+              onChange={handleChange("cpf")}
+              inputMode="numeric"
               required
             />
           </div>
@@ -130,8 +246,10 @@ function Register() {
           {senhasDiferentes && <p className="text-xs text-destructive">As senhas nao coincidem.</p>}
         </div>
 
-        <Button type="submit" className="w-full cursor-pointer">
-          Criar conta
+        {error && <p className="text-xs text-destructive">{error}</p>}
+
+        <Button type="submit" className="w-full cursor-pointer" disabled={isSubmitting}>
+          {isSubmitting ? "Criando conta..." : "Criar conta"}
         </Button>
 
         <p className="text-center text-sm text-muted-foreground">

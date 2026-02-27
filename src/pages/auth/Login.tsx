@@ -1,18 +1,41 @@
 import { useState, type FormEvent } from "react"
-import { Link } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import { Eye, EyeOff, Mail, Lock } from "lucide-react"
 import AuthShell from "@/components/AuthShell"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { getErrorMessage } from "@/lib/api"
+import { isAuthenticated, login } from "@/lib/auth"
 
 function Login() {
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (e: FormEvent) => {
+  if (isAuthenticated()) {
+    return <Navigate to="/" replace />
+  }
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    console.log("Dados enviados:", email, password)
+    const normalizedEmail = email.trim().toLowerCase()
+    setError("")
+    setIsSubmitting(true)
+
+    try {
+      await login({
+        email: normalizedEmail,
+        password,
+      })
+      navigate("/")
+    } catch (apiError) {
+      setError(getErrorMessage(apiError, "Credenciais invalidas."))
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -64,6 +87,8 @@ function Login() {
           </div>
         </div>
 
+        {error && <p className="text-xs text-destructive">{error}</p>}
+
         <div className="flex items-center justify-between text-sm">
           <Link to="/register" className="text-muted-foreground transition hover:text-foreground">
             Criar conta
@@ -73,8 +98,8 @@ function Login() {
           </Link>
         </div>
 
-        <Button type="submit" className="mt-2 w-full cursor-pointer">
-          Entrar
+        <Button type="submit" className="mt-2 w-full cursor-pointer" disabled={isSubmitting}>
+          {isSubmitting ? "Entrando..." : "Entrar"}
         </Button>
       </form>
     </AuthShell>
