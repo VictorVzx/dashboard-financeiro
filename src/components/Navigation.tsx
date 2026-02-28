@@ -5,9 +5,10 @@ import { Notification } from "./Notifications.tsx"
 import ProfileModal from "./ProfileModal"
 import { getStoredProfile, getStoredUser, onAuthUpdated, onProfileUpdated, type UserProfile } from "@/lib/auth"
 
-function getInitials(name: string) {
-  if (!name.trim()) return "US"
-  return name
+function getInitials(name: unknown) {
+  const normalizedName = typeof name === "string" ? name.trim() : ""
+  if (!normalizedName) return "US"
+  return normalizedName
     .split(" ")
     .filter(Boolean)
     .slice(0, 2)

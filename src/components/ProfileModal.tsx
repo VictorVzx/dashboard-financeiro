@@ -42,10 +42,39 @@ const emptyForm: ProfileForm = {
   plan: "",
 }
 
-function getUserInitials(name: string) {
-  if (!name.trim()) return "US"
+function toSafeText(value: unknown) {
+  return typeof value === "string" ? value : ""
+}
 
-  return name
+type ProfileFormInput = {
+  name?: unknown
+  phone?: unknown
+  address?: unknown
+  avatarUrl?: unknown
+  email?: unknown
+  role?: unknown
+  plan?: unknown
+}
+
+function toProfileForm(input: ProfileFormInput | null | undefined): ProfileForm {
+  if (!input) return emptyForm
+
+  return {
+    name: toSafeText(input.name),
+    phone: toSafeText(input.phone),
+    address: toSafeText(input.address),
+    avatarUrl: toSafeText(input.avatarUrl),
+    email: toSafeText(input.email),
+    role: toSafeText(input.role),
+    plan: toSafeText(input.plan),
+  }
+}
+
+function getUserInitials(name: unknown) {
+  const normalizedName = toSafeText(name).trim()
+  if (!normalizedName) return "US"
+
+  return normalizedName
     .split(" ")
     .filter(Boolean)
     .slice(0, 2)
@@ -63,15 +92,15 @@ function ProfileModal({ children }: ProfileModalProps) {
     const storedProfile = getStoredProfile()
     if (!storedProfile) return emptyForm
 
-    return {
+    return toProfileForm({
       name: storedProfile.name,
-      phone: storedProfile.phone ?? "",
-      address: storedProfile.address ?? "",
-      avatarUrl: storedProfile.avatarUrl ?? "",
+      phone: storedProfile.phone,
+      address: storedProfile.address,
+      avatarUrl: storedProfile.avatarUrl,
       email: storedProfile.email,
       role: storedProfile.role,
       plan: storedProfile.plan,
-    }
+    })
   })
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
@@ -82,15 +111,17 @@ function ProfileModal({ children }: ProfileModalProps) {
 
     try {
       const profile = await getProfile()
-      setForm({
-        name: profile.name,
-        phone: profile.phone ?? "",
-        address: profile.address ?? "",
-        avatarUrl: profile.avatarUrl ?? "",
-        email: profile.email,
-        role: profile.role,
-        plan: profile.plan,
-      })
+      setForm(
+        toProfileForm({
+          name: profile.name,
+          phone: profile.phone,
+          address: profile.address,
+          avatarUrl: profile.avatarUrl,
+          email: profile.email,
+          role: profile.role,
+          plan: profile.plan,
+        }),
+      )
     } catch (apiError) {
       setError(getErrorMessage(apiError, "Nao foi possivel carregar os dados do perfil."))
     } finally {
@@ -141,7 +172,8 @@ function ProfileModal({ children }: ProfileModalProps) {
     setError("")
     setSuccess("")
 
-    if (!form.name.trim()) {
+    const normalizedName = toSafeText(form.name).trim()
+    if (!normalizedName) {
       setError("Informe o nome.")
       return
     }
@@ -150,10 +182,10 @@ function ProfileModal({ children }: ProfileModalProps) {
 
     try {
       await updateProfile({
-        name: form.name.trim(),
-        phone: form.phone.trim() || null,
-        address: form.address.trim() || null,
-        avatarUrl: form.avatarUrl.trim() || null,
+        name: normalizedName,
+        phone: toSafeText(form.phone).trim() || null,
+        address: toSafeText(form.address).trim() || null,
+        avatarUrl: toSafeText(form.avatarUrl).trim() || null,
       })
       setSuccess("Perfil atualizado com sucesso.")
     } catch (apiError) {
