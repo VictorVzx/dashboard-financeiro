@@ -6,8 +6,8 @@ import {
   getSettings,
   updateSettings,
   type SettingsPreferences,
-  type ThemePreference,
 } from "@/lib/dashboard-api"
+import { applyThemePreference, type ThemePreference } from "@/lib/theme"
 import {
   Dialog,
   DialogContent,
@@ -26,19 +26,6 @@ const defaultSettings: SettingsPreferences = {
   themePreference: "system",
   notificationsEnabled: true,
   twoFactorEnabled: false,
-}
-
-function applyThemePreference(themePreference: ThemePreference) {
-  const root = document.documentElement
-  if (themePreference === "system") {
-    localStorage.removeItem("theme")
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-    root.classList.toggle("dark", prefersDark)
-    return
-  }
-
-  localStorage.setItem("theme", themePreference)
-  root.classList.toggle("dark", themePreference === "dark")
 }
 
 function SettingsModal({ children }: SettingsModalProps) {

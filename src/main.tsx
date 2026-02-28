@@ -12,6 +12,7 @@ import Budgets from './pages/others/Budgets.tsx'
 import Goals from './pages/others/Goals.tsx'
 import Transactions from './pages/others/Transactions.tsx'
 import RequireAuth from './components/RequireAuth.tsx'
+import { initializeTheme } from './lib/theme.ts'
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,8 @@ const router = createBrowserRouter([
     element: <ForgotPassword />,
   },
 ])
+
+initializeTheme()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
