@@ -138,6 +138,26 @@ function getAccountsCacheKey() {
   return `dashboard_accounts_cache_v1_${userId ?? "anonymous"}`
 }
 
+function extractAccountsPayload(payload: unknown): BackendAccount[] {
+  if (Array.isArray(payload)) {
+    return payload as BackendAccount[]
+  }
+
+  if (payload && typeof payload === "object") {
+    const record = payload as {
+      data?: unknown
+      content?: unknown
+      accounts?: unknown
+    }
+
+    if (Array.isArray(record.data)) return record.data as BackendAccount[]
+    if (Array.isArray(record.content)) return record.content as BackendAccount[]
+    if (Array.isArray(record.accounts)) return record.accounts as BackendAccount[]
+  }
+
+  throw new Error("Formato de resposta invalido ao carregar as contas.")
+}
+
 function readCachedAccounts(maxAgeMs = ACCOUNTS_CACHE_TTL_MS): Account[] {
   if (!hasBrowserStorage()) return []
 
@@ -170,9 +190,11 @@ function writeCachedAccounts(accounts: Account[]) {
 
 async function fetchAccounts(token: string) {
   if (!accountsInFlight) {
-    accountsInFlight = apiRequest<BackendAccount[]>("/accounts", { token }).finally(() => {
-      accountsInFlight = null
-    })
+    accountsInFlight = apiRequest<unknown>("/accounts", { token })
+      .then(extractAccountsPayload)
+      .finally(() => {
+        accountsInFlight = null
+      })
   }
 
   return accountsInFlight

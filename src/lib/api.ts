@@ -1,4 +1,17 @@
-const DEFAULT_API_BASE_URL = "http://localhost:8080"
+function getDefaultApiBaseUrl() {
+  if (typeof window === "undefined") {
+    return "http://localhost:8080"
+  }
+
+  const host = window.location.hostname.trim()
+  if (host.length === 0) {
+    return "http://localhost:8080"
+  }
+
+  return `${window.location.protocol}//${host}:8080`
+}
+
+const DEFAULT_API_BASE_URL = getDefaultApiBaseUrl()
 
 const configuredBaseUrl = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim()
 const API_BASE_URL = (configuredBaseUrl && configuredBaseUrl.length > 0

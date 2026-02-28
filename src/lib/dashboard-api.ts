@@ -158,6 +158,7 @@ type RawOverview = {
 }
 
 const DASHBOARD_OVERVIEW_CACHE_TTL_MS = 10 * 60_000
+const ACCOUNTS_CACHE_KEY_PREFIX = "dashboard_accounts_cache_v1_"
 let dashboardOverviewInFlight: Promise<DashboardOverview> | null = null
 
 function requireToken() {
@@ -177,6 +178,11 @@ function getDashboardOverviewCacheKey() {
   return `dashboard_overview_cache_v1_${userId ?? "anonymous"}`
 }
 
+function getAccountsCacheKey() {
+  const userId = getStoredUser()?.id
+  return `${ACCOUNTS_CACHE_KEY_PREFIX}${userId ?? "anonymous"}`
+}
+
 function saveDashboardOverviewCache(overview: DashboardOverview) {
   if (!hasBrowserStorage()) return
 
@@ -186,6 +192,21 @@ function saveDashboardOverviewCache(overview: DashboardOverview) {
   }
 
   localStorage.setItem(getDashboardOverviewCacheKey(), JSON.stringify(payload))
+}
+
+function clearDashboardOverviewCache() {
+  if (!hasBrowserStorage()) return
+  localStorage.removeItem(getDashboardOverviewCacheKey())
+}
+
+function clearAccountsCache() {
+  if (!hasBrowserStorage()) return
+  localStorage.removeItem(getAccountsCacheKey())
+}
+
+function invalidateFinanceCaches() {
+  clearDashboardOverviewCache()
+  clearAccountsCache()
 }
 
 export function getCachedDashboardOverview(maxAgeMs = DASHBOARD_OVERVIEW_CACHE_TTL_MS) {
@@ -337,6 +358,7 @@ export async function createTransaction(payload: CreateTransactionPayload) {
     token: requireToken(),
     body: payload,
   })
+  invalidateFinanceCaches()
   return mapTransaction(data)
 }
 
@@ -346,6 +368,7 @@ export async function updateTransaction(id: number, payload: CreateTransactionPa
     token: requireToken(),
     body: payload,
   })
+  invalidateFinanceCaches()
   return mapTransaction(data)
 }
 
@@ -353,6 +376,8 @@ export function deleteTransaction(id: number) {
   return apiRequest<void>(`/transactions/${id}`, {
     method: "DELETE",
     token: requireToken(),
+  }).then(() => {
+    invalidateFinanceCaches()
   })
 }
 
