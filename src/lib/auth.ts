@@ -44,6 +44,24 @@ type RegisterRequest = {
   password: string
 }
 
+type ForgotPasswordRequest = {
+  email: string
+}
+
+type ForgotPasswordResponse = {
+  message: string
+}
+
+type ResetPasswordRequest = {
+  email: string
+  code: string
+  newPassword: string
+}
+
+type MessageResponse = {
+  message: string
+}
+
 function hasBrowserStorage() {
   return typeof window !== "undefined"
 }
@@ -156,13 +174,11 @@ export async function login(payload: LoginRequest): Promise<AuthUser> {
 }
 
 export async function register(payload: RegisterRequest): Promise<AuthUser> {
-  const response = await apiRequest<AuthResponse>("/auth/register", {
+  const user = await apiRequest<AuthUser>("/auth/register", {
     method: "POST",
     body: payload,
   })
-
-  persistAuth(response)
-  return response.user
+  return user
 }
 
 export async function fetchCurrentUser() {
@@ -177,6 +193,20 @@ export async function fetchCurrentUser() {
     emitEvent(AUTH_UPDATED_EVENT)
   }
   return user
+}
+
+export async function requestPasswordReset(payload: ForgotPasswordRequest): Promise<ForgotPasswordResponse> {
+  return apiRequest<ForgotPasswordResponse>("/auth/forgot-password/request", {
+    method: "POST",
+    body: payload,
+  })
+}
+
+export async function resetPassword(payload: ResetPasswordRequest): Promise<MessageResponse> {
+  return apiRequest<MessageResponse>("/auth/forgot-password/reset", {
+    method: "POST",
+    body: payload,
+  })
 }
 
 export function onAuthUpdated(listener: () => void) {

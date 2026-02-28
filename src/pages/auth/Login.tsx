@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react"
-import { Link, Navigate, useNavigate } from "react-router-dom"
+import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom"
 import { Eye, EyeOff, Mail, Lock } from "lucide-react"
 import AuthShell from "@/components/AuthShell"
 import { Button } from "@/components/ui/button"
@@ -9,8 +9,12 @@ import { isAuthenticated, login } from "@/lib/auth"
 
 function Login() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const registeredEmail = searchParams.get("email")?.trim().toLowerCase() ?? ""
+  const registered = searchParams.get("registered") === "1"
+  const resetSuccess = searchParams.get("reset") === "1"
   const [showPassword, setShowPassword] = useState(false)
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState(registeredEmail)
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -32,7 +36,12 @@ function Login() {
       })
       navigate("/")
     } catch (apiError) {
-      setError(getErrorMessage(apiError, "Credenciais invalidas."))
+      const message = getErrorMessage(apiError, "Credenciais invalidas.")
+      if (message === "Failed to fetch") {
+        setError("Nao foi possivel conectar ao backend. Verifique se a API esta rodando e liberando CORS.")
+        return
+      }
+      setError(message)
     } finally {
       setIsSubmitting(false)
     }
@@ -88,6 +97,16 @@ function Login() {
         </div>
 
         {error && <p className="text-xs text-destructive">{error}</p>}
+        {!error && registered && (
+          <p className="text-xs text-emerald-600">
+            Conta criada com sucesso. Faca login para continuar.
+          </p>
+        )}
+        {!error && resetSuccess && (
+          <p className="text-xs text-emerald-600">
+            Senha redefinida com sucesso. Entre com a nova senha.
+          </p>
+        )}
 
         <div className="flex items-center justify-between text-sm">
           <Link to="/register" className="text-muted-foreground transition hover:text-foreground">

@@ -97,16 +97,22 @@ function Register() {
     setIsSubmitting(true)
 
     try {
+      const normalizedEmail = formData.email.trim().toLowerCase()
       await register({
         name: formData.name.trim(),
-        email: formData.email.trim().toLowerCase(),
+        email: normalizedEmail,
         cpf: cpfDigits,
         birthdate: formatBirthDateToBackend(formData.birthDate),
         password: formData.password,
       })
-      navigate("/")
+      navigate(`/login?registered=1&email=${encodeURIComponent(normalizedEmail)}`, { replace: true })
     } catch (apiError) {
-      setError(getErrorMessage(apiError, "Nao foi possivel concluir o cadastro."))
+      const message = getErrorMessage(apiError, "Nao foi possivel concluir o cadastro.")
+      if (message === "Failed to fetch") {
+        setError("Nao foi possivel conectar ao backend. Verifique se a API esta rodando e liberando CORS.")
+        return
+      }
+      setError(message)
     } finally {
       setIsSubmitting(false)
     }
