@@ -1,14 +1,21 @@
 function getDefaultApiBaseUrl() {
+  const productionApiBaseUrl = "https://dashboard-damp-pond-1935.fly.dev"
+
   if (typeof window === "undefined") {
-    return "http://localhost:8080"
+    return productionApiBaseUrl
   }
 
-  const host = window.location.hostname.trim()
+  const host = window.location.hostname.trim().toLowerCase()
   if (host.length === 0) {
     return "http://localhost:8080"
   }
 
-  return `${window.location.protocol}//${host}:8080`
+  const isLocalHost = host === "localhost" || host === "127.0.0.1" || host.startsWith("192.168.")
+  if (isLocalHost) {
+    return `${window.location.protocol}//${host}:8080`
+  }
+
+  return productionApiBaseUrl
 }
 
 const DEFAULT_API_BASE_URL = getDefaultApiBaseUrl()
