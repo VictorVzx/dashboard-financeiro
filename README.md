@@ -72,7 +72,3 @@ App em desenvolvimento:
 - Tema claro/escuro via classe `dark` no `documentElement`
 - Paleta baseada em tokens (`--background`, `--card`, `--border`, etc.)
 - Layout responsivo com foco em desktop e adaptacao mobile
-
-## Observacoes
-- Dados atuais de dashboard/notificacoes sao reals (frontend only)
-- Sem integracao backend no estado atual
