@@ -43,7 +43,7 @@ function DashboardOverviewComponent() {
       } catch (apiError) {
         if (!active) return
 
-        if (apiError instanceof ApiError && apiError.status === 401) {
+        if (apiError instanceof ApiError && (apiError.status === 401 || apiError.status === 403)) {
           logout()
           navigate("/login", { replace: true })
           return

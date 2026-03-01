@@ -96,7 +96,7 @@ function Transactions() {
       } catch (apiError) {
         if (!active) return
 
-        if (apiError instanceof ApiError && apiError.status === 401) {
+        if (apiError instanceof ApiError && (apiError.status === 401 || apiError.status === 403)) {
           logout()
           navigate("/login", { replace: true })
           return
@@ -179,7 +179,7 @@ function Transactions() {
       setIsDialogOpen(false)
       setForm(initialForm)
     } catch (apiError) {
-      if (apiError instanceof ApiError && apiError.status === 401) {
+      if (apiError instanceof ApiError && (apiError.status === 401 || apiError.status === 403)) {
         logout()
         navigate("/login", { replace: true })
         return
@@ -199,7 +199,7 @@ function Transactions() {
       await deleteTransaction(id)
       setTransactions((previous) => previous.filter((transaction) => transaction.id !== id))
     } catch (apiError) {
-      if (apiError instanceof ApiError && apiError.status === 401) {
+      if (apiError instanceof ApiError && (apiError.status === 401 || apiError.status === 403)) {
         logout()
         navigate("/login", { replace: true })
         return

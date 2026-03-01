@@ -67,7 +67,7 @@ function Budgets() {
       } catch (apiError) {
         if (!active) return
 
-        if (apiError instanceof ApiError && apiError.status === 401) {
+        if (apiError instanceof ApiError && (apiError.status === 401 || apiError.status === 403)) {
           logout()
           navigate("/login", { replace: true })
           return
@@ -148,7 +148,7 @@ function Budgets() {
       setIsDialogOpen(false)
       setForm(initialForm)
     } catch (apiError) {
-      if (apiError instanceof ApiError && apiError.status === 401) {
+      if (apiError instanceof ApiError && (apiError.status === 401 || apiError.status === 403)) {
         logout()
         navigate("/login", { replace: true })
         return
@@ -168,7 +168,7 @@ function Budgets() {
       await deleteBudget(id)
       setBudgets((previous) => previous.filter((budget) => budget.id !== id))
     } catch (apiError) {
-      if (apiError instanceof ApiError && apiError.status === 401) {
+      if (apiError instanceof ApiError && (apiError.status === 401 || apiError.status === 403)) {
         logout()
         navigate("/login", { replace: true })
         return

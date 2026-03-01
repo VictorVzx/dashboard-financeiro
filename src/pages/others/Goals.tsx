@@ -71,7 +71,7 @@ function Goals() {
       } catch (apiError) {
         if (!active) return
 
-        if (apiError instanceof ApiError && apiError.status === 401) {
+        if (apiError instanceof ApiError && (apiError.status === 401 || apiError.status === 403)) {
           logout()
           navigate("/login", { replace: true })
           return
@@ -151,7 +151,7 @@ function Goals() {
       setIsDialogOpen(false)
       setForm(initialForm)
     } catch (apiError) {
-      if (apiError instanceof ApiError && apiError.status === 401) {
+      if (apiError instanceof ApiError && (apiError.status === 401 || apiError.status === 403)) {
         logout()
         navigate("/login", { replace: true })
         return
@@ -171,7 +171,7 @@ function Goals() {
       await deleteGoal(id)
       setGoals((previous) => previous.filter((goal) => goal.id !== id))
     } catch (apiError) {
-      if (apiError instanceof ApiError && apiError.status === 401) {
+      if (apiError instanceof ApiError && (apiError.status === 401 || apiError.status === 403)) {
         logout()
         navigate("/login", { replace: true })
         return

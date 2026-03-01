@@ -254,7 +254,7 @@ function Accounts() {
       } catch (apiError) {
         if (!isActive) return
 
-        if (apiError instanceof ApiError && apiError.status === 401) {
+        if (apiError instanceof ApiError && (apiError.status === 401 || apiError.status === 403)) {
           logout()
           navigate("/login", { replace: true })
           return
@@ -382,7 +382,7 @@ function Accounts() {
       setIsModalOpen(false)
       setLoadError("")
     } catch (apiError) {
-      if (apiError instanceof ApiError && apiError.status === 401) {
+      if (apiError instanceof ApiError && (apiError.status === 401 || apiError.status === 403)) {
         logout()
         navigate("/login", { replace: true })
         return
@@ -416,7 +416,7 @@ function Accounts() {
         return next
       })
     } catch (apiError) {
-      if (apiError instanceof ApiError && apiError.status === 401) {
+      if (apiError instanceof ApiError && (apiError.status === 401 || apiError.status === 403)) {
         logout()
         navigate("/login", { replace: true })
         return
