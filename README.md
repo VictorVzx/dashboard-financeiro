@@ -23,7 +23,7 @@ Projeto frontend de controle financeiro com foco em:
   - Orcamentos
   - Metas
 - Navbar fixa com:
-  - notificacoes mockadas
+  - notificacoes reais
   - modal de perfil
 - Sidebar com:
   - links de navegacao
@@ -74,5 +74,5 @@ App em desenvolvimento:
 - Layout responsivo com foco em desktop e adaptacao mobile
 
 ## Observacoes
-- Dados atuais de dashboard/notificacoes sao mocks (frontend only)
+- Dados atuais de dashboard/notificacoes sao reals (frontend only)
 - Sem integracao backend no estado atual
