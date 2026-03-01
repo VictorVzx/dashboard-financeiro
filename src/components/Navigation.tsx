@@ -27,7 +27,7 @@ function resolveProfile(): Pick<UserProfile, "name" | "avatarUrl"> {
 
   const user = getStoredUser()
   return {
-    name: user?.name ?? "Usuario",
+    name: user?.name ?? "Usuário",
     avatarUrl: null,
   }
 }
@@ -47,7 +47,7 @@ function Navigation() {
     }
   }, [])
 
-  const userName = profile.name || "Usuario"
+  const userName = profile.name || "Usuário"
   const initials = getInitials(userName)
 
   return (

@@ -155,7 +155,7 @@ function extractAccountsPayload(payload: unknown): BackendAccount[] {
     if (Array.isArray(record.accounts)) return record.accounts as BackendAccount[]
   }
 
-  throw new Error("Formato de resposta invalido ao carregar as contas.")
+  throw new Error("Formato de resposta inválido ao carregar as contas.")
 }
 
 function readCachedAccounts(maxAgeMs = ACCOUNTS_CACHE_TTL_MS): Account[] {
@@ -260,7 +260,7 @@ function Accounts() {
           return
         }
 
-        setLoadError(getErrorMessage(apiError, "Nao foi possivel carregar as contas."))
+        setLoadError(getErrorMessage(apiError, "Não foi possível carregar as contas."))
       } finally {
         if (isActive) {
           setIsLoading(false)
@@ -306,13 +306,13 @@ function Accounts() {
 
     const finalDigits = formData.final.replace(/\D/g, "").slice(0, 4)
     if (finalDigits.length !== 4) {
-      setFormError("Informe os 4 digitos finais da conta.")
+      setFormError("Informe os 4 dígitos finais da conta.")
       return
     }
 
     const saldoInicial = Number(formData.saldoInicial.replace(",", "."))
     if (Number.isNaN(saldoInicial) || saldoInicial < 0) {
-      setFormError("Informe um saldo inicial valido.")
+      setFormError("Informe um saldo inicial válido.")
       return
     }
 
@@ -320,7 +320,7 @@ function Accounts() {
     if (formData.tipo === "cartao") {
       const limitValue = Number(formData.limite.replace(",", "."))
       if (Number.isNaN(limitValue) || limitValue <= 0) {
-        setFormError("Para cartao, informe um limite valido maior que zero.")
+        setFormError("Para cartão, informe um limite válido maior que zero.")
         return
       }
       limiteCartao = limitValue
@@ -388,7 +388,7 @@ function Accounts() {
         return
       }
 
-      setFormError(getErrorMessage(apiError, "Nao foi possivel salvar a conta."))
+      setFormError(getErrorMessage(apiError, "Não foi possível salvar a conta."))
     } finally {
       setIsSubmitting(false)
     }
@@ -422,7 +422,7 @@ function Accounts() {
         return
       }
 
-      setLoadError(getErrorMessage(apiError, "Nao foi possivel excluir a conta."))
+      setLoadError(getErrorMessage(apiError, "Não foi possível excluir a conta."))
     }
   }
 
@@ -433,7 +433,7 @@ function Accounts() {
           <div>
             <h2 className="text-xl font-semibold sm:text-2xl">Contas</h2>
             <p className="text-sm text-muted-foreground">
-              Visualize e gerencie todas as suas contas em um unico lugar.
+              Visualize e gerencie todas as suas contas em um único lugar.
             </p>
           </div>
 
@@ -465,8 +465,8 @@ function Accounts() {
                     required
                   >
                     <option value="corrente">Conta corrente</option>
-                    <option value="poupanca">Conta poupanca</option>
-                    <option value="cartao">Cartao de credito</option>
+                    <option value="poupanca">Conta poupança</option>
+                    <option value="cartao">Cartão de crédito</option>
                   </select>
                 </div>
 
@@ -532,7 +532,7 @@ function Accounts() {
                   {formData.tipo === "cartao" && (
                     <div className="space-y-2">
                       <label className="text-sm font-medium" htmlFor="account-limit">
-                        Limite do cartao
+                        Limite do cartão
                       </label>
                       <Input
                         id="account-limit"
@@ -578,7 +578,7 @@ function Accounts() {
             </p>
           </article>
           <article className="rounded-xl border border-border/70 bg-background/80 p-4">
-            <p className="text-sm text-muted-foreground">Saidas previstas</p>
+            <p className="text-sm text-muted-foreground">Saídas previstas</p>
             <p className="text-xl font-semibold text-rose-600 dark:text-rose-400 sm:text-2xl">
               {formatCurrency(summary.saidasPrevistas)}
             </p>
@@ -595,7 +595,7 @@ function Accounts() {
           {!isLoading && accounts.length === 0 && (
             <article className="rounded-xl border border-border/70 bg-background/80 p-4">
               <p className="text-sm text-muted-foreground">
-                Nenhuma conta cadastrada ainda. Adicione uma conta para comecar.
+                Nenhuma conta cadastrada ainda. Adicione uma conta para começar.
               </p>
             </article>
           )}
@@ -630,7 +630,7 @@ function Accounts() {
                           : "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
                       }`}
                     >
-                      {isCartao ? "Atencao" : "Saudavel"}
+                      {isCartao ? "Atenção" : "Saudável"}
                     </span>
                   </div>
 
@@ -640,7 +640,7 @@ function Accounts() {
                       isCartao ? "text-amber-600 dark:text-amber-400" : "text-sky-600 dark:text-sky-400"
                     }`}
                   >
-                    {isCartao ? `${usoDoLimite}% do limite` : "+0% no mes"}
+                    {isCartao ? `${usoDoLimite}% do limite` : "+0% no mês"}
                   </p>
 
                   <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
@@ -652,7 +652,7 @@ function Accounts() {
                       </p>
                     </div>
                     <div className="rounded-md border border-border/70 bg-card/60 p-2">
-                      <p className="mb-1 text-muted-foreground">Saidas</p>
+                      <p className="mb-1 text-muted-foreground">Saídas</p>
                       <p className="inline-flex items-center gap-1 font-medium text-rose-600 dark:text-rose-400">
                         <ArrowUpRight className="size-3.5" />
                         {formatCurrency(account.saidas)}

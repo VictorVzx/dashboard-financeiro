@@ -164,7 +164,7 @@ let dashboardOverviewInFlight: Promise<DashboardOverview> | null = null
 function requireToken() {
   const token = getAccessToken()
   if (!token) {
-    throw new ApiError(401, "Usuario nao autenticado.")
+    throw new ApiError(401, "Usuário não autenticado.")
   }
   return token
 }

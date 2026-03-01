@@ -77,7 +77,7 @@ function Goals() {
           return
         }
 
-        setError(getErrorMessage(apiError, "Nao foi possivel carregar as metas."))
+        setError(getErrorMessage(apiError, "Não foi possível carregar as metas."))
       } finally {
         if (active) {
           setIsLoading(false)
@@ -157,7 +157,7 @@ function Goals() {
         return
       }
 
-      setFormError(getErrorMessage(apiError, "Nao foi possivel salvar a meta."))
+      setFormError(getErrorMessage(apiError, "Não foi possível salvar a meta."))
     } finally {
       setIsSaving(false)
     }
@@ -177,7 +177,7 @@ function Goals() {
         return
       }
 
-      setError(getErrorMessage(apiError, "Nao foi possivel excluir a meta."))
+      setError(getErrorMessage(apiError, "Não foi possível excluir a meta."))
     }
   }
 
@@ -205,7 +205,7 @@ function Goals() {
 
               <form onSubmit={handleSubmit} className="space-y-3">
                 <Input
-                  placeholder="Titulo da meta"
+                  placeholder="Título da meta"
                   value={form.titulo}
                   onChange={(event) => setForm((previous) => ({ ...previous, titulo: event.target.value }))}
                   required
@@ -276,7 +276,7 @@ function Goals() {
                     <span>{formatCurrency(goal.atual)}</span>
                     <span className="text-muted-foreground">Meta: {formatCurrency(goal.alvo)}</span>
                   </div>
-                  <p className="mt-1 text-xs text-sky-600 dark:text-sky-400">{percentual}% concluido</p>
+                  <p className="mt-1 text-xs text-sky-600 dark:text-sky-400">{percentual}% concluído</p>
 
                   <div className="mt-3 flex items-center gap-2">
                     <Button variant="outline" size="sm" onClick={() => openEditDialog(goal)}>

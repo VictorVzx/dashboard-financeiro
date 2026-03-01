@@ -184,7 +184,7 @@ export async function register(payload: RegisterRequest): Promise<AuthUser> {
 export async function fetchCurrentUser() {
   const token = getAccessToken()
   if (!token) {
-    throw new ApiError(401, "Usuario nao autenticado.")
+    throw new ApiError(401, "Usuário não autenticado.")
   }
 
   const user = await apiRequest<AuthUser>("/auth/me", { token })

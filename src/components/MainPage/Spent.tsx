@@ -9,7 +9,7 @@ function Spent() {
       <div className="text-center text-foreground sm:text-left">
         <h2 className="text-sm font-bold sm:text-base">Gastos:</h2>
         <p className="text-xl font-semibold">0,00 R$</p>
-        <p className="text-sm text-muted-foreground">Ultimo mes</p>
+        <p className="text-sm text-muted-foreground">Último mês</p>
       </div>
     </div>
   );

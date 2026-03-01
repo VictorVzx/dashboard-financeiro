@@ -126,7 +126,7 @@ export async function apiRequest<T>(path: string, options: ApiRequestOptions = {
   }
 
   if (!response.ok) {
-    const fallbackMessage = response.statusText || "Erro na requisicao"
+    const fallbackMessage = response.statusText || "Erro na requisição"
     const message = getErrorMessageFromPayload(payload, fallbackMessage)
     const details = typeof payload === "string" || isRecord(payload) ? payload : null
     throw new ApiError(response.status, message, details)
@@ -135,7 +135,7 @@ export async function apiRequest<T>(path: string, options: ApiRequestOptions = {
   return payload as T
 }
 
-export function getErrorMessage(error: unknown, fallback = "Nao foi possivel completar a operacao."): string {
+export function getErrorMessage(error: unknown, fallback = "Não foi possível completar a operação."): string {
   if (error instanceof ApiError) {
     return error.message
   }

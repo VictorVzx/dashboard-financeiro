@@ -36,8 +36,8 @@ function buildNotificationItems(overview: DashboardOverview): NotificationItem[]
 
   if (overview.budgetUsagePercent >= 80) {
     generated.push({
-      titulo: "Orcamento proximo do limite",
-      descricao: `Uso atual de ${Math.round(overview.budgetUsagePercent)}% do orcamento mensal.`,
+      titulo: "Orçamento próximo do limite",
+      descricao: `Uso atual de ${Math.round(overview.budgetUsagePercent)}% do orçamento mensal.`,
       tempo: "Agora",
       tipo: "alerta",
     })
@@ -47,7 +47,7 @@ function buildNotificationItems(overview: DashboardOverview): NotificationItem[]
     const goal = overview.goals[0]
     generated.push({
       titulo: "Meta atualizada",
-      descricao: `${goal.title}: ${Math.round(goal.progressPercent)}% concluido.`,
+      descricao: `${goal.title}: ${Math.round(goal.progressPercent)}% concluído.`,
       tempo: `Prazo ${formatDate(goal.deadline)}`,
       tipo: "meta",
     })
@@ -56,7 +56,7 @@ function buildNotificationItems(overview: DashboardOverview): NotificationItem[]
   generated.push(
     ...overview.activities.slice(0, 3).map(
       (activity): NotificationItem => ({
-        titulo: activity.type === "ENTRADA" ? "Entrada registrada" : "Saida registrada",
+        titulo: activity.type === "ENTRADA" ? "Entrada registrada" : "Saída registrada",
         descricao: `${activity.title}: ${formatCurrency(activity.amount)}.`,
         tempo: formatDate(activity.date),
         tipo: activity.type === "ENTRADA" ? "entrada" : "saida",
@@ -108,7 +108,7 @@ export function Notification() {
           return
         }
 
-        setError(getErrorMessage(apiError, "Nao foi possivel carregar notificacoes."))
+        setError(getErrorMessage(apiError, "Não foi possível carregar notificações."))
       } finally {
         if (active) {
           setIsLoading(false)
@@ -128,24 +128,24 @@ export function Notification() {
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="w-fit cursor-pointer px-2 sm:px-3">
           <Bell className="size-4" />
-          <span className="hidden sm:inline">Notificacoes</span>
+          <span className="hidden sm:inline">Notificações</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-80">
         <PopoverHeader>
-          <PopoverTitle>Notificacoes</PopoverTitle>
-          <PopoverDescription>Atualizacoes recentes da sua conta.</PopoverDescription>
+          <PopoverTitle>Notificações</PopoverTitle>
+          <PopoverDescription>Atualizações recentes da sua conta.</PopoverDescription>
         </PopoverHeader>
 
         {error && <p className="mt-3 text-xs text-destructive">{error}</p>}
 
         <div className="mt-3 space-y-2">
           {isLoading && (
-            <p className="text-xs text-muted-foreground">Atualizando notificacoes...</p>
+            <p className="text-xs text-muted-foreground">Atualizando notificações...</p>
           )}
 
           {!error && items.length === 0 && (
-            <p className="text-xs text-muted-foreground">Sem notificacoes no momento.</p>
+            <p className="text-xs text-muted-foreground">Sem notificações no momento.</p>
           )}
 
           {items.map((item) => (
@@ -163,7 +163,7 @@ export function Notification() {
                           : "bg-rose-500/15 text-rose-600 dark:text-rose-400"
                   }`}
                 >
-                  {item.tipo}
+                  {item.tipo === "saida" ? "saída" : item.tipo}
                 </span>
               </div>
               <p className="text-xs text-muted-foreground">{item.descricao}</p>

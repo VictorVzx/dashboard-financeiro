@@ -27,7 +27,7 @@ function ForgotPassword() {
 
     const normalizedEmail = email.trim().toLowerCase()
     if (!normalizedEmail) {
-      setError("Informe um email valido.")
+      setError("Informe um email válido.")
       return
     }
 
@@ -38,9 +38,9 @@ function ForgotPassword() {
       setEmail(normalizedEmail)
       setSuccess(response.message)
     } catch (apiError) {
-      const message = getErrorMessage(apiError, "Nao foi possivel enviar o codigo de recuperacao.")
+      const message = getErrorMessage(apiError, "Não foi possível enviar o código de recuperação.")
       if (message === "Failed to fetch") {
-        setError("Nao foi possivel conectar ao backend. Verifique se a API esta rodando e liberando CORS.")
+        setError("Não foi possível conectar ao backend. Verifique se a API está rodando e liberando CORS.")
         return
       }
       setError(message)
@@ -56,22 +56,22 @@ function ForgotPassword() {
 
     const normalizedEmail = email.trim().toLowerCase()
     if (!normalizedEmail) {
-      setError("Informe um email valido.")
+      setError("Informe um email válido.")
       return
     }
 
     if (code.trim().length !== 6) {
-      setError("Informe o codigo de 6 digitos.")
+      setError("Informe o código de 6 dígitos.")
       return
     }
 
     if (newPassword.length < 6) {
-      setError("A nova senha deve ter no minimo 6 caracteres.")
+      setError("A nova senha deve ter no mínimo 6 caracteres.")
       return
     }
 
     if (newPassword !== confirmPassword) {
-      setError("As senhas nao coincidem.")
+      setError("As senhas não coincidem.")
       return
     }
 
@@ -84,9 +84,9 @@ function ForgotPassword() {
       })
       navigate(`/login?reset=1&email=${encodeURIComponent(normalizedEmail)}`, { replace: true })
     } catch (apiError) {
-      const message = getErrorMessage(apiError, "Nao foi possivel redefinir sua senha.")
+      const message = getErrorMessage(apiError, "Não foi possível redefinir sua senha.")
       if (message === "Failed to fetch") {
-        setError("Nao foi possivel conectar ao backend. Verifique se a API esta rodando e liberando CORS.")
+        setError("Não foi possível conectar ao backend. Verifique se a API está rodando e liberando CORS.")
         return
       }
       setError(message)
@@ -96,7 +96,7 @@ function ForgotPassword() {
   }
 
   return (
-    <AuthShell title="Recuperar acesso" subtitle="Enviaremos um codigo para seu email">
+    <AuthShell title="Recuperar acesso" subtitle="Enviaremos um código para seu email">
       {step === "request" ? (
         <form onSubmit={handleRequestCode} className="space-y-4">
           <div className="space-y-2">
@@ -108,7 +108,7 @@ function ForgotPassword() {
               <Input
                 id="forgot-email"
                 type="email"
-                placeholder="voce@email.com"
+                placeholder="você@email.com"
                 className="pl-9"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
@@ -121,7 +121,7 @@ function ForgotPassword() {
           {success && <p className="text-xs text-emerald-600">{success}</p>}
 
           <Button type="submit" className="w-full cursor-pointer" disabled={isSubmitting}>
-            {isSubmitting ? "Enviando..." : "Enviar codigo"}
+            {isSubmitting ? "Enviando..." : "Enviar código"}
           </Button>
 
           <p className="text-center text-sm text-muted-foreground">
@@ -151,7 +151,7 @@ function ForgotPassword() {
 
           <div className="space-y-2">
             <label htmlFor="reset-code" className="text-sm font-medium">
-              Codigo de recuperacao
+              Código de recuperação
             </label>
             <Input
               id="reset-code"
@@ -237,7 +237,7 @@ function ForgotPassword() {
                 setSuccess("")
               }}
             >
-              Solicitar novo codigo
+              Solicitar novo código
             </button>
           </p>
         </form>

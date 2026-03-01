@@ -49,7 +49,7 @@ function DashboardOverviewComponent() {
           return
         }
 
-        setError(getErrorMessage(apiError, "Nao foi possivel carregar o dashboard."))
+        setError(getErrorMessage(apiError, "Não foi possível carregar o dashboard."))
       } finally {
         if (active) {
           setIsLoading(false)
@@ -81,7 +81,7 @@ function DashboardOverviewComponent() {
     })
   }, [monthlyBalance, chartMax])
 
-  const headlineName = overview?.userName ?? "Usuario"
+  const headlineName = overview?.userName ?? "Usuário"
   const goals = useMemo(() => overview?.goals ?? [], [overview])
   const activities = useMemo(() => overview?.activities ?? [], [overview])
 
@@ -90,12 +90,12 @@ function DashboardOverviewComponent() {
       <header className="flex flex-col gap-4 rounded-xl border border-border/70 bg-background/80 p-4 backdrop-blur-sm md:flex-row md:items-center md:justify-between">
         <div className="flex items-start gap-2 text-base font-semibold sm:text-lg">
           <Hand className="mt-0.5 size-5 shrink-0" />
-          <h2>Ola, {headlineName}! Aqui esta o resumo do seu mes</h2>
+          <h2>Olá, {headlineName}! Aqui está o resumo do seu mês</h2>
         </div>
         <Button asChild className="w-full cursor-pointer md:w-auto" variant="outline">
           <Link to="/transacoes">
             <Plus className="size-4" />
-            Adicionar movimentacao
+            Adicionar movimentação
           </Link>
         </Button>
       </header>
@@ -111,14 +111,14 @@ function DashboardOverviewComponent() {
           <p className="text-sm text-muted-foreground">Saldo atual</p>
           <p className="text-2xl font-semibold">{formatCurrency(overview?.currentBalance ?? 0)}</p>
           <p className="text-sm text-muted-foreground">
-            Disponivel: {formatCurrency(overview?.availableBalance ?? 0)}
+            Disponível: {formatCurrency(overview?.availableBalance ?? 0)}
           </p>
           <p className="text-sm text-muted-foreground">Guardado: {formatCurrency(overview?.savedBalance ?? 0)}</p>
         </article>
 
         <article className="rounded-xl border border-border/70 bg-background/80 p-4 xl:col-span-8">
           <p className="text-sm text-muted-foreground">
-            Dados em tempo real do backend para todas as secoes do dashboard.
+            Dados em tempo real do backend para todas as seções do dashboard.
           </p>
         </article>
       </div>
@@ -131,25 +131,25 @@ function DashboardOverviewComponent() {
           </div>
           <p className="text-2xl font-semibold sm:text-3xl">{formatCurrency(overview?.currentBalance ?? 0)}</p>
           <p className="mt-1 text-sm text-sky-600 dark:text-sky-400">
-            Liquido do mes: {formatCurrency(overview?.monthNet ?? 0)}
+            Líquido do mês: {formatCurrency(overview?.monthNet ?? 0)}
           </p>
         </article>
 
         <article className="rounded-xl border border-border/70 bg-background/80 p-4">
           <div className="mb-2 flex items-center gap-2 text-sm font-medium">
             <ArrowDown className="size-4 text-rose-500" />
-            Gastos do mes
+            Gastos do mês
           </div>
           <p className="text-2xl font-semibold sm:text-3xl">{formatCurrency(overview?.monthExpense ?? 0)}</p>
           <p className="mt-1 text-sm text-amber-600 dark:text-amber-400">
-            {Math.round(overview?.budgetUsagePercent ?? 0)}% do orcamento
+            {Math.round(overview?.budgetUsagePercent ?? 0)}% do orçamento
           </p>
         </article>
 
         <article className="rounded-xl border border-border/70 bg-background/80 p-4">
           <div className="mb-2 flex items-center gap-2 text-sm font-medium">
             <ArrowUp className="size-4 text-emerald-500" />
-            Receita do mes
+            Receita do mês
           </div>
           <p className="text-2xl font-semibold sm:text-3xl">{formatCurrency(overview?.monthIncome ?? 0)}</p>
           <p className="mt-1 text-sm text-emerald-600 dark:text-emerald-400">Dados atualizados</p>
@@ -159,14 +159,14 @@ function DashboardOverviewComponent() {
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-12">
         <article className="rounded-xl border border-border/70 bg-background/80 p-4 xl:col-span-8">
           <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <h3 className="text-base font-semibold">Evolucao do saldo - ultimos 6 meses</h3>
+            <h3 className="text-base font-semibold">Evolução do saldo - últimos 6 meses</h3>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <TrendingUp className="size-4 text-sky-500" />
               Saldo
             </div>
           </div>
 
-          {isLoading && <p className="text-sm text-muted-foreground">Carregando grafico...</p>}
+          {isLoading && <p className="text-sm text-muted-foreground">Carregando gráfico...</p>}
 
           {!isLoading && monthlyBalance.length > 0 && (
             <div className="overflow-x-auto">
@@ -230,7 +230,7 @@ function DashboardOverviewComponent() {
 
         <div className="space-y-4 xl:col-span-4">
           <article className="rounded-xl border border-border/70 bg-background/80 p-4">
-            <h3 className="mb-3 text-base font-semibold">Metas do mes</h3>
+            <h3 className="mb-3 text-base font-semibold">Metas do mês</h3>
             {goals.length === 0 ? (
               <p className="text-sm text-muted-foreground">Nenhuma meta cadastrada ainda.</p>
             ) : (
@@ -259,7 +259,7 @@ function DashboardOverviewComponent() {
           <article className="rounded-xl border border-border/70 bg-background/80 p-4">
             <h3 className="mb-2 text-base font-semibold">Controle e atividade</h3>
             {activities.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Sem movimentacoes recentes.</p>
+              <p className="text-sm text-muted-foreground">Sem movimentações recentes.</p>
             ) : (
               <div className="space-y-2 text-sm">
                 {activities.slice(0, 4).map((activityItem) => (

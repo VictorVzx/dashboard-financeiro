@@ -22,8 +22,8 @@ import SettingsModal from "@/components/SettingsModal"
 const links = [
   { to: "/", label: "Painel", icon: LayoutDashboard },
   { to: "/contas", label: "Contas", icon: Users },
-  { to: "/transacoes", label: "Transacoes", icon: Receipt },
-  { to: "/orcamentos", label: "Orcamentos", icon: PiggyBank },
+  { to: "/transacoes", label: "Transações", icon: Receipt },
+  { to: "/orcamentos", label: "Orçamentos", icon: PiggyBank },
   { to: "/metas", label: "Metas", icon: Target },
 ]
 
@@ -67,7 +67,7 @@ function SidebarTG() {
               className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-sidebar-foreground/80 transition hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
               <Settings className="size-4" />
-              Configuracoes
+              Configurações
             </button>
           </SettingsModal>
         </SidebarFooter>

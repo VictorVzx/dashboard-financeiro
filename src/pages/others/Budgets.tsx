@@ -73,7 +73,7 @@ function Budgets() {
           return
         }
 
-        setError(getErrorMessage(apiError, "Nao foi possivel carregar os orcamentos."))
+        setError(getErrorMessage(apiError, "Não foi possível carregar os orçamentos."))
       } finally {
         if (active) {
           setIsLoading(false)
@@ -112,18 +112,18 @@ function Budgets() {
 
     const limite = Number(form.limite.replace(",", "."))
     if (!Number.isFinite(limite) || limite <= 0) {
-      setFormError("Informe um limite valido maior que zero.")
+      setFormError("Informe um limite válido maior que zero.")
       return
     }
 
     const gastoAtual = Number(form.gastoAtual.replace(",", "."))
     if (!Number.isFinite(gastoAtual) || gastoAtual < 0) {
-      setFormError("Informe um gasto atual valido.")
+      setFormError("Informe um gasto atual válido.")
       return
     }
 
     if (!form.competencia) {
-      setFormError("Informe a competencia no formato AAAA-MM.")
+      setFormError("Informe a competência no formato AAAA-MM.")
       return
     }
 
@@ -154,14 +154,14 @@ function Budgets() {
         return
       }
 
-      setFormError(getErrorMessage(apiError, "Nao foi possivel salvar o orcamento."))
+      setFormError(getErrorMessage(apiError, "Não foi possível salvar o orçamento."))
     } finally {
       setIsSaving(false)
     }
   }
 
   const handleDelete = async (id: number) => {
-    const confirmed = window.confirm("Deseja realmente excluir este orcamento?")
+    const confirmed = window.confirm("Deseja realmente excluir este orçamento?")
     if (!confirmed) return
 
     try {
@@ -173,7 +173,7 @@ function Budgets() {
         navigate("/login", { replace: true })
         return
       }
-      setError(getErrorMessage(apiError, "Nao foi possivel excluir o orcamento."))
+      setError(getErrorMessage(apiError, "Não foi possível excluir o orçamento."))
     }
   }
 
@@ -182,7 +182,7 @@ function Budgets() {
       <section className="space-y-4 rounded-2xl border border-border/80 bg-card/95 p-4 shadow-sm md:p-6">
         <header className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-xl font-semibold sm:text-2xl">Orcamentos</h2>
+            <h2 className="text-xl font-semibold sm:text-2xl">Orçamentos</h2>
             <p className="text-sm text-muted-foreground">Controle seus limites mensais por categoria.</p>
           </div>
 
@@ -190,12 +190,12 @@ function Budgets() {
             <DialogTrigger asChild>
               <Button className="cursor-pointer" onClick={openCreateDialog}>
                 <Plus className="size-4" />
-                Novo orcamento
+                Novo orçamento
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>{editingId === null ? "Novo orcamento" : "Editar orcamento"}</DialogTitle>
+                <DialogTitle>{editingId === null ? "Novo orçamento" : "Editar orçamento"}</DialogTitle>
                 <DialogDescription>Preencha os dados para salvar.</DialogDescription>
               </DialogHeader>
 
@@ -252,10 +252,10 @@ function Budgets() {
         )}
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {isLoading && <p className="text-sm text-muted-foreground">Carregando orcamentos...</p>}
+          {isLoading && <p className="text-sm text-muted-foreground">Carregando orçamentos...</p>}
 
           {!isLoading && budgets.length === 0 && (
-            <p className="text-sm text-muted-foreground">Nenhum orcamento cadastrado ainda.</p>
+            <p className="text-sm text-muted-foreground">Nenhum orçamento cadastrado ainda.</p>
           )}
 
           {!isLoading &&
@@ -280,7 +280,7 @@ function Budgets() {
                   <p className="mt-2 text-sm text-muted-foreground">
                     {formatCurrency(item.gastoAtual)} / {formatCurrency(item.limite)}
                   </p>
-                  <p className="text-xs text-muted-foreground">Competencia: {item.competencia}</p>
+                  <p className="text-xs text-muted-foreground">Competência: {item.competencia}</p>
 
                   <div className="mt-3 flex items-center gap-2">
                     <Button variant="outline" size="sm" onClick={() => openEditDialog(item)}>

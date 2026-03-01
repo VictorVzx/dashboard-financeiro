@@ -45,7 +45,7 @@ function SettingsModal({ children }: SettingsModalProps) {
       const response = await getSettings()
       setSettings(response)
     } catch (apiError) {
-      setError(getErrorMessage(apiError, "Nao foi possivel carregar as configuracoes."))
+      setError(getErrorMessage(apiError, "Não foi possível carregar as configurações."))
     } finally {
       setIsLoading(false)
     }
@@ -67,9 +67,9 @@ function SettingsModal({ children }: SettingsModalProps) {
       const updated = await updateSettings(settings)
       setSettings(updated)
       applyThemePreference(updated.themePreference)
-      setSuccess("Configuracoes salvas com sucesso.")
+      setSuccess("Configurações salvas com sucesso.")
     } catch (apiError) {
-      setError(getErrorMessage(apiError, "Nao foi possivel salvar as configuracoes."))
+      setError(getErrorMessage(apiError, "Não foi possível salvar as configurações."))
     } finally {
       setIsSaving(false)
     }
@@ -83,9 +83,9 @@ function SettingsModal({ children }: SettingsModalProps) {
           <DialogHeader className="space-y-2 text-left">
             <DialogTitle className="flex items-center gap-2 text-xl">
               <Settings2 className="size-5" />
-              Configuracoes
+              Configurações
             </DialogTitle>
-            <DialogDescription>Ajuste preferencias visuais, notificacoes e seguranca.</DialogDescription>
+            <DialogDescription>Ajuste preferências visuais, notificações e segurança.</DialogDescription>
           </DialogHeader>
         </div>
 
@@ -123,7 +123,7 @@ function SettingsModal({ children }: SettingsModalProps) {
                 <Bell className="size-4 text-muted-foreground" />
               </div>
               <div>
-                <p className="text-sm font-medium">Notificacoes por email</p>
+                <p className="text-sm font-medium">Notificações por e-mail</p>
                 <p className="text-xs text-muted-foreground">Receba alertas e resumos mensais.</p>
               </div>
             </div>
@@ -147,8 +147,8 @@ function SettingsModal({ children }: SettingsModalProps) {
                 <Lock className="size-4 text-muted-foreground" />
               </div>
               <div>
-                <p className="text-sm font-medium">Autenticacao em dois fatores</p>
-                <p className="text-xs text-muted-foreground">Adicione uma camada extra de seguranca.</p>
+                <p className="text-sm font-medium">Autenticação em dois fatores</p>
+                <p className="text-xs text-muted-foreground">Adicione uma camada extra de segurança.</p>
               </div>
             </div>
             <input
@@ -172,7 +172,7 @@ function SettingsModal({ children }: SettingsModalProps) {
         <DialogFooter className="border-t border-border/70 bg-muted/40 p-4">
           <Button className="w-full cursor-pointer sm:w-auto" onClick={handleSave} disabled={isSaving || isLoading}>
             <Save className="size-4" />
-            {isSaving ? "Salvando..." : "Salvar configuracoes"}
+            {isSaving ? "Salvando..." : "Salvar configurações"}
           </Button>
         </DialogFooter>
       </DialogContent>

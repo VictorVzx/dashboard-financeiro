@@ -68,13 +68,13 @@ function Register() {
     setError("")
 
     if (formData.password !== formData.confirmPassword) {
-      setError("As senhas nao coincidem.")
+      setError("As senhas não coincidem.")
       return
     }
 
     const cpfDigits = formData.cpf.replace(/\D/g, "")
     if (cpfDigits.length !== 11) {
-      setError("Informe um CPF valido com 11 digitos.")
+      setError("Informe um CPF válido com 11 dígitos.")
       return
     }
 
@@ -85,12 +85,12 @@ function Register() {
 
     const age = getAgeFromBirthDate(formData.birthDate)
     if (Number.isNaN(age) || age < 0) {
-      setError("Data de nascimento invalida.")
+      setError("Data de nascimento inválida.")
       return
     }
 
     if (age < 18) {
-      setError("Nao e possivel criar a conta para menores de 18 anos.")
+      setError("Não é possível criar a conta para menores de 18 anos.")
       return
     }
 
@@ -107,9 +107,9 @@ function Register() {
       })
       navigate(`/login?registered=1&email=${encodeURIComponent(normalizedEmail)}`, { replace: true })
     } catch (apiError) {
-      const message = getErrorMessage(apiError, "Nao foi possivel concluir o cadastro.")
+      const message = getErrorMessage(apiError, "Não foi possível concluir o cadastro.")
       if (message === "Failed to fetch") {
-        setError("Nao foi possivel conectar ao backend. Verifique se a API esta rodando e liberando CORS.")
+        setError("Não foi possível conectar ao backend. Verifique se a API está rodando e liberando CORS.")
         return
       }
       setError(message)
@@ -150,7 +150,7 @@ function Register() {
             <Input
               id="register-email"
               type="email"
-              placeholder="voce@email.com"
+              placeholder="você@email.com"
               className="pl-9"
               value={formData.email}
               onChange={handleChange("email")}
@@ -249,7 +249,7 @@ function Register() {
               <span className="sr-only">Mostrar ou ocultar senha</span>
             </Button>
           </div>
-          {senhasDiferentes && <p className="text-xs text-destructive">As senhas nao coincidem.</p>}
+          {senhasDiferentes && <p className="text-xs text-destructive">As senhas não coincidem.</p>}
         </div>
 
         {error && <p className="text-xs text-destructive">{error}</p>}
@@ -259,7 +259,7 @@ function Register() {
         </Button>
 
         <p className="text-center text-sm text-muted-foreground">
-          Ja tem conta?{" "}
+          Já tem conta?{" "}
           <Link to="/login" className="text-foreground hover:underline">
             Entrar
           </Link>

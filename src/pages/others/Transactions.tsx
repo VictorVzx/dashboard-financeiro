@@ -102,7 +102,7 @@ function Transactions() {
           return
         }
 
-        setError(getErrorMessage(apiError, "Nao foi possivel carregar as transacoes."))
+        setError(getErrorMessage(apiError, "Não foi possível carregar as transações."))
       } finally {
         if (active) {
           setIsLoading(false)
@@ -144,12 +144,12 @@ function Transactions() {
 
     const valor = Number(form.valor.replace(",", "."))
     if (!Number.isFinite(valor) || valor <= 0) {
-      setFormError("Informe um valor valido maior que zero.")
+      setFormError("Informe um valor válido maior que zero.")
       return
     }
 
     if (!form.data) {
-      setFormError("Informe uma data valida.")
+      setFormError("Informe uma data válida.")
       return
     }
 
@@ -185,14 +185,14 @@ function Transactions() {
         return
       }
 
-      setFormError(getErrorMessage(apiError, "Nao foi possivel salvar a transacao."))
+      setFormError(getErrorMessage(apiError, "Não foi possível salvar a transação."))
     } finally {
       setIsSaving(false)
     }
   }
 
   const handleDelete = async (id: number) => {
-    const confirmed = window.confirm("Deseja realmente excluir esta transacao?")
+    const confirmed = window.confirm("Deseja realmente excluir esta transação?")
     if (!confirmed) return
 
     try {
@@ -204,7 +204,7 @@ function Transactions() {
         navigate("/login", { replace: true })
         return
       }
-      setError(getErrorMessage(apiError, "Nao foi possivel excluir a transacao."))
+      setError(getErrorMessage(apiError, "Não foi possível excluir a transação."))
     }
   }
 
@@ -213,26 +213,26 @@ function Transactions() {
       <section className="space-y-4 rounded-2xl border border-border/80 bg-card/95 p-4 shadow-sm md:p-6">
         <header className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-xl font-semibold sm:text-2xl">Transacoes</h2>
-            <p className="text-sm text-muted-foreground">Historico recente de entradas e saidas.</p>
+            <h2 className="text-xl font-semibold sm:text-2xl">Transações</h2>
+            <p className="text-sm text-muted-foreground">Histórico recente de entradas e saídas.</p>
           </div>
 
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button className="cursor-pointer" onClick={openCreateDialog}>
                 <Plus className="size-4" />
-                Nova transacao
+                Nova transação
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>{editingId === null ? "Nova transacao" : "Editar transacao"}</DialogTitle>
+                <DialogTitle>{editingId === null ? "Nova transação" : "Editar transação"}</DialogTitle>
                 <DialogDescription>Preencha os dados para salvar.</DialogDescription>
               </DialogHeader>
 
               <form onSubmit={handleSubmit} className="space-y-3">
                 <Input
-                  placeholder="Descricao"
+                  placeholder="Descrição"
                   value={form.descricao}
                   onChange={(event) => setForm((prev) => ({ ...prev, descricao: event.target.value }))}
                   required
@@ -250,7 +250,7 @@ function Transactions() {
                     value={form.tipo}
                     onChange={(event) => setForm((prev) => ({ ...prev, tipo: event.target.value as TransactionType }))}
                   >
-                    <option value="SAIDA">Saida</option>
+                    <option value="SAIDA">Saída</option>
                     <option value="ENTRADA">Entrada</option>
                   </select>
                   <Input
@@ -286,7 +286,7 @@ function Transactions() {
                 </div>
 
                 <Input
-                  placeholder="Observacao (opcional)"
+                  placeholder="Observação (opcional)"
                   value={form.observacao}
                   onChange={(event) => setForm((prev) => ({ ...prev, observacao: event.target.value }))}
                 />
@@ -311,19 +311,19 @@ function Transactions() {
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <article className="rounded-xl border border-border/70 bg-background/80 p-4">
-            <p className="text-sm text-muted-foreground">Entradas no mes</p>
+            <p className="text-sm text-muted-foreground">Entradas no mês</p>
             <p className="text-xl font-semibold text-emerald-600 dark:text-emerald-400 sm:text-2xl">
               {formatCurrency(summary.entradas)}
             </p>
           </article>
           <article className="rounded-xl border border-border/70 bg-background/80 p-4">
-            <p className="text-sm text-muted-foreground">Saidas no mes</p>
+            <p className="text-sm text-muted-foreground">Saídas no mês</p>
             <p className="text-xl font-semibold text-rose-600 dark:text-rose-400 sm:text-2xl">
               {formatCurrency(summary.saidas)}
             </p>
           </article>
           <article className="rounded-xl border border-border/70 bg-background/80 p-4">
-            <p className="text-sm text-muted-foreground">Saldo de transacoes</p>
+            <p className="text-sm text-muted-foreground">Saldo de transações</p>
             <p className="text-xl font-semibold sm:text-2xl">{formatCurrency(summary.saldo)}</p>
           </article>
         </div>
@@ -332,20 +332,20 @@ function Transactions() {
           <table className="min-w-[760px] w-full text-left">
             <thead className="bg-muted/50 text-xs uppercase tracking-wide text-muted-foreground">
               <tr>
-                <th className="px-4 py-3">Descricao</th>
+                <th className="px-4 py-3">Descrição</th>
                 <th className="px-4 py-3">Categoria</th>
                 <th className="px-4 py-3">Conta</th>
                 <th className="px-4 py-3">Tipo</th>
                 <th className="px-4 py-3">Valor</th>
                 <th className="px-4 py-3">Data</th>
-                <th className="px-4 py-3">Acoes</th>
+                <th className="px-4 py-3">Ações</th>
               </tr>
             </thead>
             <tbody>
               {isLoading && (
                 <tr>
                   <td className="px-4 py-3 text-sm text-muted-foreground" colSpan={7}>
-                    Carregando transacoes...
+                    Carregando transações...
                   </td>
                 </tr>
               )}
@@ -353,7 +353,7 @@ function Transactions() {
               {!isLoading && transactions.length === 0 && (
                 <tr>
                   <td className="px-4 py-3 text-sm text-muted-foreground" colSpan={7}>
-                    Nenhuma transacao cadastrada.
+                    Nenhuma transação cadastrada.
                   </td>
                 </tr>
               )}
@@ -372,7 +372,7 @@ function Transactions() {
                             : "bg-rose-500/15 text-rose-600 dark:text-rose-400"
                         }`}
                       >
-                        {item.tipo === "ENTRADA" ? "Entrada" : "Saida"}
+                        {item.tipo === "ENTRADA" ? "Entrada" : "Saída"}
                       </span>
                     </td>
                     <td className="px-4 py-3 font-medium">{formatCurrency(item.valor)}</td>

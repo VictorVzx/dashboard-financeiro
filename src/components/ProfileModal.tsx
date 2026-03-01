@@ -123,7 +123,7 @@ function ProfileModal({ children }: ProfileModalProps) {
         }),
       )
     } catch (apiError) {
-      setError(getErrorMessage(apiError, "Nao foi possivel carregar os dados do perfil."))
+      setError(getErrorMessage(apiError, "Não foi possível carregar os dados do perfil."))
     } finally {
       setIsLoading(false)
     }
@@ -147,12 +147,12 @@ function ProfileModal({ children }: ProfileModalProps) {
     if (!file) return
 
     if (!file.type.startsWith("image/")) {
-      setError("Selecione um arquivo de imagem valido.")
+      setError("Selecione um arquivo de imagem válido.")
       return
     }
 
     if (file.size > 1024 * 1024 * 4) {
-      setError("A imagem deve ter no maximo 4MB.")
+      setError("A imagem deve ter no máximo 4MB.")
       return
     }
 
@@ -189,7 +189,7 @@ function ProfileModal({ children }: ProfileModalProps) {
       })
       setSuccess("Perfil atualizado com sucesso.")
     } catch (apiError) {
-      setError(getErrorMessage(apiError, "Nao foi possivel salvar o perfil."))
+      setError(getErrorMessage(apiError, "Não foi possível salvar o perfil."))
     } finally {
       setIsSaving(false)
     }
@@ -204,14 +204,14 @@ function ProfileModal({ children }: ProfileModalProps) {
         <div className="border-b border-border/70 p-4 pr-12 sm:p-6">
           <DialogHeader className="space-y-2 text-left">
             <DialogTitle className="text-xl">Meu perfil</DialogTitle>
-            <DialogDescription>Atualize suas informacoes e foto de perfil.</DialogDescription>
+            <DialogDescription>Atualize suas informações e foto de perfil.</DialogDescription>
           </DialogHeader>
         </div>
 
         <div className="space-y-4 overflow-y-auto p-4 sm:p-6">
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <Avatar className="size-20 ring-2 ring-border/80">
-              <AvatarImage src={form.avatarUrl || undefined} alt={form.name || "Usuario"} />
+              <AvatarImage src={form.avatarUrl || undefined} alt={form.name || "Usuário"} />
               <AvatarFallback>{userInitials}</AvatarFallback>
             </Avatar>
             <div className="space-y-2">
@@ -231,7 +231,7 @@ function ProfileModal({ children }: ProfileModalProps) {
                 className="hidden"
                 onChange={handlePhotoChange}
               />
-              <p className="text-xs text-muted-foreground">PNG/JPG ate 4MB.</p>
+              <p className="text-xs text-muted-foreground">PNG/JPG até 4MB.</p>
             </div>
           </div>
 
@@ -290,7 +290,7 @@ function ProfileModal({ children }: ProfileModalProps) {
             </div>
             <div className="flex items-center gap-3 rounded-md border border-border/70 bg-background/60 px-3 py-2">
               <ShieldCheck className="size-4 text-muted-foreground" />
-              <span className="text-sm">{form.role || "Usuario"}</span>
+              <span className="text-sm">{form.role || "Usuário"}</span>
             </div>
             <div className="flex items-center gap-3 rounded-md border border-border/70 bg-background/60 px-3 py-2">
               <CreditCard className="size-4 text-muted-foreground" />
@@ -315,7 +315,7 @@ function ProfileModal({ children }: ProfileModalProps) {
           </div>
           <Button className="w-full cursor-pointer sm:w-auto" onClick={handleSave} disabled={isSaving || isLoading}>
             <Save className="size-4" />
-            {isSaving ? "Salvando..." : "Salvar alteracoes"}
+            {isSaving ? "Salvando..." : "Salvar alterações"}
           </Button>
         </DialogFooter>
       </DialogContent>

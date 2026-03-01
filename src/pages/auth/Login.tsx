@@ -36,9 +36,9 @@ function Login() {
       })
       navigate("/")
     } catch (apiError) {
-      const message = getErrorMessage(apiError, "Credenciais invalidas.")
+      const message = getErrorMessage(apiError, "Credenciais inválidas.")
       if (message === "Failed to fetch") {
-        setError("Nao foi possivel conectar ao backend. Verifique se a API esta rodando e liberando CORS.")
+        setError("Não foi possível conectar ao backend. Verifique se a API está rodando e liberando CORS.")
         return
       }
       setError(message)
@@ -59,7 +59,7 @@ function Login() {
             <Input
               id="login-email"
               type="email"
-              placeholder="voce@email.com"
+              placeholder="você@email.com"
               className="pl-9"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -99,7 +99,7 @@ function Login() {
         {error && <p className="text-xs text-destructive">{error}</p>}
         {!error && registered && (
           <p className="text-xs text-emerald-600">
-            Conta criada com sucesso. Faca login para continuar.
+            Conta criada com sucesso. Faça login para continuar.
           </p>
         )}
         {!error && resetSuccess && (
